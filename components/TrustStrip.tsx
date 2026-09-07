@@ -22,11 +22,8 @@ export default function TrustStrip({ items }: { items: TrustItem[] }) {
               className="h-8 w-auto grayscale transition-[filter] group-hover:grayscale-0"
             />
           ) : (
-            <span className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.12em] text-ink/70">
-              <span className="flex h-6 w-6 items-center justify-center rounded-full bg-forest text-[11px] text-porcelain">
-                {item.name.charAt(0)}
-              </span>
-              <span>{item.name}</span>
+            <span className="text-center text-xs font-semibold uppercase tracking-[0.12em] text-ink/70">
+              {item.name}
             </span>
           )}
         </div>
