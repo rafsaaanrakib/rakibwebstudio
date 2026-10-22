@@ -13,7 +13,7 @@ export const site = {
   location: "Chattogram, Bangladesh",
   url:
     process.env.NEXT_PUBLIC_SITE_URL ?? "https://rakibwebstudio.com",
-  gaId: "G-BTCM3XB3LN",
+  gaId: "G-BTCM3XBJLN",
 };
 
 export function whatsappLink(message?: string) {
