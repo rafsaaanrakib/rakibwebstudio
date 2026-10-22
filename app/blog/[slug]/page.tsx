@@ -18,6 +18,27 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
   };
 }
 
+// Body paragraphs support lightweight links: [label](/internal) or
+// [label](https://external). Everything else renders as plain text.
+function renderRichText(text: string) {
+  return text.split(/(\[[^\]]+\]\([^)]+\))/g).map((part, i) => {
+    const m = part.match(/^\[([^\]]+)\]\(([^)]+)\)$/);
+    if (!m) return part;
+    const [, label, href] = m;
+    const cls =
+      "font-medium text-porcelain underline decoration-porcelain/40 underline-offset-4 transition hover:decoration-signal";
+    return href.startsWith("/") ? (
+      <Link key={i} href={href} className={cls}>
+        {label}
+      </Link>
+    ) : (
+      <a key={i} href={href} target="_blank" rel="noopener noreferrer" className={cls}>
+        {label}
+      </a>
+    );
+  });
+}
+
 export default function PostPage({ params }: { params: { slug: string } }) {
   const post = getPost(params.slug);
   if (!post) notFound();
@@ -39,7 +60,7 @@ export default function PostPage({ params }: { params: { slug: string } }) {
         <div className="mt-10 space-y-6">
           {post.body.map((paragraph, i) => (
             <p key={i} className="text-base leading-[1.85] text-mist">
-              {paragraph}
+              {renderRichText(paragraph)}
             </p>
           ))}
         </div>
