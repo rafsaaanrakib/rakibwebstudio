@@ -1,0 +1,10 @@
+# Rakib Web Studio — Cloudflare Workers static assets deployment.
+# The site is a 100% static Next.js export; `npm run build` writes ./out
+# and Wrangler serves that folder. No Worker script is used.
+name = "rakibwebstudio"
+compatibility_date = "2025-04-01"
+
+[assets]
+directory = "./out"
+not_found_handling = "404-page"
+html_handling = "auto-trailing-slash"
