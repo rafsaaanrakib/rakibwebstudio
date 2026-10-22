@@ -7,12 +7,8 @@ html {
 }
 
 body {
-  background-color: #F6F5F1;
-  color: #16233D;
-}
-
-main {
-  animation: page-enter 0.55s ease-out both;
+  background-color: #0a0a0b;
+  color: #ecece6;
 }
 
 a,
@@ -20,37 +16,66 @@ button {
   -webkit-tap-highlight-color: transparent;
 }
 
-@keyframes page-enter {
-  from {
-    opacity: 0;
-    transform: translateY(8px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
 ::selection {
-  background-color: #E8A33D;
-  color: #16233D;
+  background-color: #ecece6;
+  color: #0a0a0b;
 }
 
 a:focus-visible,
-button:focus-visible {
-  outline: 2px solid #E8A33D;
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid #ecece6;
   outline-offset: 3px;
 }
 
+/* Soft starfield / glow backdrop used behind the hero globe */
+.hero-glow {
+  background:
+    radial-gradient(700px 420px at 82% 34%, rgba(236, 236, 230, 0.055), transparent 65%),
+    radial-gradient(500px 300px at 12% 8%, rgba(236, 236, 230, 0.03), transparent 60%);
+}
+
+input[type="range"] {
+  accent-color: #ecece6;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
+  *,
+  *::before,
+  *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+}
 
-  main {
-    animation: none !important;
-  }
+/* Cinematic film grain overlay (SVG noise, no image file needed) */
+.grain::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.055;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+}
+
+/* Cinematic vignette: edges fall off to the page background */
+.vignette::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(120% 90% at 50% 40%, transparent 55%, rgba(3, 5, 10, 0.55) 100%);
+}
+
+/* Services marquee band */
+@keyframes marquee-x {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.marquee-track {
+  animation: marquee-x 36s linear infinite;
 }

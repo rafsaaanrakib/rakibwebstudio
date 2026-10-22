@@ -1,11 +1,11 @@
 import type { MetadataRoute } from "next";
+import { site } from "@/data/site";
 
-const siteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL ?? "https://rakibwebstudio.vercel.app";
+export const dynamic = "force-static";
 
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: { userAgent: "*", allow: "/" },
-    sitemap: `${siteUrl}/sitemap.xml`,
+    sitemap: `${site.url}/sitemap.xml`,
   };
 }

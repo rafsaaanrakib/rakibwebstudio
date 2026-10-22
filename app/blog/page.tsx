@@ -1,47 +1,38 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import Reveal from "@/components/Reveal";
-import { posts } from "./posts";
+import { posts } from "@/data/posts";
 
-export default function Blog() {
+export const metadata: Metadata = {
+  title: "Blog — Notes on Growing a Business Online",
+  description:
+    "Practical notes on websites that sell, SEO in plain English, and short-form video — from real client work at Rakib Web Studio.",
+};
+
+export default function BlogPage() {
+  const sorted = [...posts].sort((a, b) => b.date.localeCompare(a.date));
   return (
-    <div className="mx-auto max-w-4xl px-6 py-16 sm:py-24">
+    <div className="mx-auto max-w-6xl px-6 py-16 sm:py-24">
       <Reveal>
-        <p className="text-sm font-medium text-forest">Blog</p>
-        <h1 className="mt-3 max-w-2xl font-serif text-3xl font-semibold text-ink sm:text-5xl">
-          Notes on websites, SEO, and growth
+        <p className="font-mono text-[11px] uppercase tracking-[0.24em] text-mist">Blog</p>
+        <h1 className="mt-3 max-w-3xl font-display text-4xl font-extrabold uppercase leading-[1.02] tracking-tight text-porcelain sm:text-6xl">
+          Notes on websites, SEO and growth that actually moves the needle.
         </h1>
-        <p className="mt-6 max-w-prose text-base leading-relaxed text-ink/70 sm:text-lg">
-          Practical lessons from building, marketing, and improving digital
-          systems for real businesses.
+        <p className="mt-6 max-w-prose text-base leading-relaxed text-mist sm:text-lg">
+          Ideas from real client work, delivered without the noise.
         </p>
       </Reveal>
 
       <div className="mt-14 grid gap-6 sm:grid-cols-2">
-        {posts.map((post, i) => (
+        {sorted.map((post, i) => (
           <Reveal key={post.slug} delay={i * 0.05}>
-            <Link
-              href={`/blog/${post.slug}`}
-              className="group block h-full rounded-sm border border-line bg-white/60 p-7 shadow-[0_10px_24px_rgba(22,35,61,0.04)] transition-[border-color,box-shadow,transform] hover:-translate-y-1 hover:border-marigold hover:shadow-[0_16px_30px_rgba(232,163,61,0.12)] sm:p-8"
-            >
-              <div className="flex items-center justify-between gap-4">
-                <p className="text-xs uppercase tracking-wide text-ink/50">
-                {new Date(post.date).toLocaleDateString("en-US", {
-                  year: "numeric",
-                  month: "long",
-                  day: "numeric",
-                })}
-                </p>
-                <span className="text-marigold transition-transform group-hover:translate-x-1">-&gt;</span>
-              </div>
-              <h2 className="mt-8 font-serif text-2xl font-semibold text-ink">
-                {post.title}
-              </h2>
-              <p className="mt-3 max-w-prose text-sm leading-relaxed text-ink/70">
-                {post.excerpt}
+            <Link href={`/blog/${post.slug}`} className="group block h-full rounded-2xl border border-line bg-panel p-7 hover:border-accent/60">
+              <p className="text-xs uppercase tracking-[0.16em] text-mist/70">
+                {new Date(post.date).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" })}
               </p>
-              <span className="mt-6 inline-block text-sm text-forest underline decoration-marigold decoration-2 underline-offset-4">
-                Read more
-              </span>
+              <h2 className="mt-3 font-serif text-2xl font-semibold text-porcelain group-hover:text-accent">{post.title}</h2>
+              <p className="mt-3 text-sm leading-relaxed text-mist">{post.excerpt}</p>
+              <p className="mt-5 text-sm font-semibold text-accent">Read article →</p>
             </Link>
           </Reveal>
         ))}

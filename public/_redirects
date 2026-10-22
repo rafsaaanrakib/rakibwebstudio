@@ -1,0 +1,2 @@
+# Cloudflare Pages: send www to the apex domain
+https://www.rakibwebstudio.com/* https://rakibwebstudio.com/:splat 301

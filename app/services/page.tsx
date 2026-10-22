@@ -1,72 +1,50 @@
-import Reveal from "@/components/Reveal";
+import type { Metadata } from "next";
 import Link from "next/link";
+import Reveal from "@/components/Reveal";
 import { services } from "@/data/services";
 
-export default function Services() {
+export const metadata: Metadata = {
+  title: "Services — The Growth System",
+  description:
+    "Every service a business needs to grow online: websites, SEO, video, content, ads, analytics and ongoing care — as one system or one tool at a time.",
+};
+
+export default function ServicesPage() {
   return (
-    <div className="mx-auto max-w-4xl px-6 py-16 sm:py-24">
+    <div className="mx-auto max-w-6xl px-6 py-16 sm:py-24">
       <Reveal>
-        <p className="text-sm font-medium text-forest">Services</p>
-        <h1 className="mt-3 max-w-2xl font-serif text-3xl font-semibold text-ink sm:text-5xl">
-          Helping businesses get found, trusted, and chosen online.
+        <p className="font-mono text-[11px] uppercase tracking-[0.24em] text-mist">Services</p>
+        <h1 className="mt-3 max-w-3xl font-display text-4xl font-extrabold uppercase leading-[1.02] tracking-tight text-porcelain sm:text-6xl">
+          One partner for the whole path from first click to paying customer.
         </h1>
-        <p className="mt-6 max-w-prose text-base leading-relaxed text-ink/70 sm:text-lg">
-          From the first page load to the next customer conversation, I build
-          the connected systems that help your business become easier to find,
-          easier to trust, and easier to choose.
+        <p className="mt-6 max-w-prose text-base leading-relaxed text-mist sm:text-lg">
+          Each service below is a tool in one growth system. Hire one tool if
+          that is what you need today — or hand over the whole system and get
+          a partner who makes the pieces work together.
         </p>
       </Reveal>
 
-      <div className="mt-14 grid gap-6 sm:grid-cols-2">
-        {services.map((service, index) => (
-          <Reveal key={service.title} delay={index * 0.05}>
-            <article className="group h-full rounded-sm border border-line bg-white/60 p-7 shadow-[0_10px_24px_rgba(22,35,61,0.04)] transition-[border-color,box-shadow,transform] hover:-translate-y-1 hover:border-marigold hover:shadow-[0_16px_30px_rgba(232,163,61,0.12)] sm:p-8">
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-medium uppercase tracking-[0.16em] text-marigold">
-                  {String(index + 1).padStart(2, "0")}
-                </span>
-                <span className="h-2 w-2 rounded-full bg-forest transition-transform group-hover:scale-150" />
-              </div>
-              <h2 className="mt-6 font-serif text-2xl font-semibold text-ink">
-                {service.title}
-              </h2>
-              <p className="mt-3 text-sm font-medium leading-relaxed text-ink">
-                {service.copy}
-              </p>
-              <p className="mt-3 text-sm leading-relaxed text-ink/65">
-                {service.details}
-              </p>
-              <ul className="mt-6 space-y-2 border-t border-line pt-5 text-xs text-ink/60">
-                {service.deliverables.map((deliverable) => (
-                  <li key={deliverable} className="flex gap-2">
-                    <span className="text-marigold">+</span>
-                    <span>{deliverable}</span>
+      <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {services.map((s, i) => (
+          <Reveal key={s.slug} delay={i * 0.04}>
+            <Link
+              href={`/services/${s.slug}`}
+              className="group block h-full rounded-2xl border border-line bg-panel p-6 transition hover:border-accent/60 hover:bg-panel2"
+            >
+              <h2 className="font-serif text-xl font-semibold text-porcelain group-hover:text-accent">{s.title}</h2>
+              <p className="mt-2 text-sm leading-relaxed text-mist">{s.copy}</p>
+              <ul className="mt-5 space-y-1.5 border-t border-line pt-4 text-xs text-mist/80">
+                {s.deliverables.map((d) => (
+                  <li key={d} className="flex gap-2">
+                    <span className="text-accent">+</span>
+                    <span>{d}</span>
                   </li>
                 ))}
               </ul>
-            </article>
+            </Link>
           </Reveal>
         ))}
       </div>
-
-      <Reveal delay={0.1} className="mt-16">
-        <div className="rounded-sm border border-line bg-ink p-8 shadow-[0_18px_40px_rgba(22,35,61,0.14)] sm:flex sm:items-center sm:justify-between sm:gap-10 sm:p-10">
-          <div>
-            <p className="text-xs uppercase tracking-[0.16em] text-marigold">
-              Let&apos;s build the system
-            </p>
-            <h2 className="mt-3 max-w-xl font-serif text-2xl font-semibold text-porcelain sm:text-3xl">
-              Your next customer is already looking. Make sure they find you.
-            </h2>
-          </div>
-          <Link
-            href="/contact"
-            className="mt-6 inline-block shrink-0 bg-marigold px-6 py-3 text-sm font-medium text-ink shadow-[0_8px_20px_rgba(232,163,61,0.18)] transition-[background-color,box-shadow,transform] hover:-translate-y-0.5 hover:bg-porcelain hover:shadow-[0_12px_24px_rgba(246,245,241,0.16)] sm:mt-0"
-          >
-            Start a conversation
-          </Link>
-        </div>
-      </Reveal>
     </div>
   );
 }

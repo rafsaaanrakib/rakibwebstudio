@@ -1,40 +1,48 @@
 import type { Metadata } from "next";
-import { Piazzolla, IBM_Plex_Sans } from "next/font/google";
+import { Archivo, Piazzolla, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
+import { site } from "@/data/site";
 
-const siteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL ?? "https://rakibwebstudio.vercel.app";
+// Type system v3: Archivo grotesque for display + body, IBM Plex Mono for
+// labels/meta, Piazzolla serif reserved for pull-quotes only.
+const archivo = Archivo({
+  subsets: ["latin"],
+  variable: "--font-archivo",
+  weight: ["400", "500", "600", "700", "800", "900"],
+});
 
 const piazzolla = Piazzolla({
   subsets: ["latin"],
   variable: "--font-piazzolla",
-  weight: ["500", "600", "700"],
+  weight: ["500", "600"],
+  style: ["normal", "italic"],
 });
 
-const plex = IBM_Plex_Sans({
+const plexMono = IBM_Plex_Mono({
   subsets: ["latin"],
-  variable: "--font-plex",
-  weight: ["400", "500", "600"],
+  variable: "--font-plex-mono",
+  weight: ["400", "500"],
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(siteUrl),
+  metadataBase: new URL(site.url),
   title: {
-    default: "Rakib Ahmed — Websites, SEO & Digital Growth",
-    template: "%s | Rakib Ahmed",
+    default: "Rakib Web Studio — Everything Your Business Needs to Grow",
+    template: "%s | Rakib Web Studio",
   },
   description:
-    "Rakib Ahmed builds websites, SEO strategies, content systems, and digital growth campaigns that help businesses get found, trusted, and chosen online.",
+    "Rakib Web Studio is a business growth partner: strategy, websites, SEO, ads, content, social and video run as one growth system for brands and online stores worldwide.",
   keywords: [
-    "web developer",
-    "SEO specialist",
-    "digital marketing consultant",
-    "website development",
-    "content strategy",
+    "business growth partner",
+    "web development",
+    "SEO",
+    "video editing",
     "Meta advertising",
+    "e-commerce growth",
     "Rakib Ahmed",
+    "Rakib Web Studio",
   ],
   authors: [{ name: "Rakib Ahmed" }],
   creator: "Rakib Ahmed",
@@ -42,25 +50,25 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: siteUrl,
-    siteName: "Rakib Ahmed",
-    title: "Rakib Ahmed — Websites, SEO & Digital Growth",
+    url: site.url,
+    siteName: "Rakib Web Studio",
+    title: "Rakib Web Studio — Everything Your Business Needs to Grow",
     description:
-      "Websites, SEO, content strategy, and digital growth systems for businesses ready to be found, trusted, and chosen.",
+      "Strategy, website, SEO, ads, content, social and video — one growth system that turns strangers into customers.",
     images: [
       {
         url: "/images/rakib-portrait.jpg",
-        width: 1200,
-        height: 630,
-        alt: "Rakib Ahmed, web developer and digital marketer",
+        width: 880,
+        height: 1100,
+        alt: "Rakib Ahmed, founder of Rakib Web Studio",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Rakib Ahmed — Websites, SEO & Digital Growth",
+    title: "Rakib Web Studio — Business Growth Partner",
     description:
-      "Websites, SEO, content strategy, and digital growth systems for businesses.",
+      "Everything your business needs to grow, from one partner. Websites, SEO, ads, content, social and video.",
     images: ["/images/rakib-portrait.jpg"],
   },
   robots: { index: true, follow: true },
@@ -72,8 +80,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${piazzolla.variable} ${plex.variable}`}>
-      <body className="font-sans antialiased">
+    <html lang="en" className={`${archivo.variable} ${piazzolla.variable} ${plexMono.variable}`}>
+      <body className="bg-night font-sans text-porcelain antialiased">
         <SiteHeader />
         <main>{children}</main>
         <SiteFooter />
@@ -86,24 +94,25 @@ export default function RootLayout({
                 {
                   "@type": "Person",
                   name: "Rakib Ahmed",
-                  url: siteUrl,
-                  jobTitle: "Web Developer and Digital Marketer",
-                  sameAs: ["https://www.linkedin.com/in/rafsaanrakib"],
+                  url: site.url,
+                  jobTitle: "Business Growth Partner & Web Developer",
+                  sameAs: [site.linkedin, site.instagram, site.tiktok, site.x, site.facebook],
+                  address: {
+                    "@type": "PostalAddress",
+                    addressLocality: "Chattogram",
+                    addressCountry: "BD",
+                  },
                 },
                 {
                   "@type": "ProfessionalService",
-                  name: "Rakib Ahmed — Websites, SEO & Digital Growth",
-                  url: siteUrl,
+                  name: "Rakib Web Studio",
+                  url: site.url,
+                  email: site.email,
                   description:
-                    "Web development, SEO, content strategy, and digital marketing services.",
+                    "Business growth partner: strategy, websites, SEO, advertising, content, social media and video as one growth system.",
                   founder: { "@type": "Person", name: "Rakib Ahmed" },
                   areaServed: "Worldwide",
-                  serviceType: [
-                    "Web Development",
-                    "SEO",
-                    "Content Strategy",
-                    "Digital Marketing",
-                  ],
+                  sameAs: [site.googleProfile, site.linkedin, site.instagram, site.tiktok, site.x, site.facebook],
                 },
               ],
             }),

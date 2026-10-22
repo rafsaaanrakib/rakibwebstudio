@@ -1,54 +1,29 @@
-# Rakib Ahmed — Portfolio
+# Rakib Web Studio — v2
 
-Next.js 14 + Tailwind CSS + Framer Motion. 100% free stack, deployable on
-Vercel's free (Hobby) tier.
-
-## Before you deploy
-
-1. **Waitlist form** — Sign up free at https://buttondown.com (free up to
-   100 subscribers). Open `components/WaitlistForm.tsx` and replace
-   `YOUR-BUTTONDOWN-USERNAME` with your real Buttondown username.
-2. **Blog content** — Edit or add posts in `app/blog/posts.ts`. Add a new
-   entry to the `posts` array and a page is created automatically at
-   `/blog/your-slug`.
-3. **Case studies / About / Contact** — All real content already lives in
-   `app/work/page.tsx`, `app/about/page.tsx`, and `app/contact/page.tsx`.
-   Edit directly as your work history grows.
+Next.js 14 + Tailwind CSS + Framer Motion + cobe (WebGL globe).
+Fully static (SSG, `output: "export"` friendly) — no database, no server
+functions, no hosted video — built to stay inside Vercel's free Hobby limits.
 
 ## Run locally
 
 ```bash
 npm install
-npm run dev
+npm run dev     # http://localhost:3000
+npm run build   # static output
 ```
 
-Visit http://localhost:3000
+## Content is data-driven
 
-## Deploy to Vercel (free)
+- Services: `data/services.ts` — add/edit an entry, pages update automatically.
+- Case studies: `data/projects.ts` — same pattern under `/work/<slug>`.
+- Blog posts: `data/posts.ts` — **add one entry to the `posts` array and a
+  page is created automatically at `/blog/<slug>`** after the next build.
+- Site-wide contact details: `data/site.ts`.
 
-**Option A — GitHub (recommended):**
-1. Push this folder to a new GitHub repo.
-2. Go to https://vercel.com → "Add New Project" → import the repo.
-3. Vercel auto-detects Next.js. Click **Deploy**. No config needed.
-4. You'll get a free `your-project.vercel.app` URL.
+## Notes
 
-**Option B — Vercel CLI (no GitHub needed):**
-```bash
-npm install -g vercel
-vercel
-```
-Follow the prompts — it deploys straight from this folder.
-
-## Adding a custom domain later
-
-Vercel → Project → Settings → Domains → Add. Free on Vercel's side; you
-only pay your domain registrar.
-
-## Stack
-
-- Next.js 14 (App Router)
-- Tailwind CSS
-- Framer Motion (animations)
-- Google Fonts: Piazzolla (headlines), IBM Plex Sans (body) — self-hosted
-  automatically at build time via `next/font`, no external requests at
-  runtime
+- The hero globe is `components/Globe.tsx` (cobe), lazy-loaded client-side,
+  with a CSS gradient fallback if WebGL is unavailable.
+- Tools (`/tools`) and the contact form are 100% client-side — the form
+  composes an email or WhatsApp message; nothing is stored.
+- Portrait: `public/images/rakib-portrait.jpg` (optimised JPEG).

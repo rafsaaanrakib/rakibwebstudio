@@ -1,50 +1,70 @@
 import Link from "next/link";
+import { site, whatsappLink } from "@/data/site";
+
+const socials = [
+  { label: "Instagram", href: site.instagram },
+  { label: "TikTok", href: site.tiktok },
+  { label: "Facebook", href: site.facebook },
+  { label: "X", href: site.x },
+  { label: "LinkedIn", href: site.linkedin },
+];
 
 export default function SiteFooter() {
   return (
-    <footer className="border-t border-line bg-white/45">
-      <div className="mx-auto grid max-w-6xl gap-10 px-6 py-14 sm:grid-cols-[1.4fr_1fr_0.7fr] sm:py-16">
-        <div>
-          <Link href="/" className="group flex items-center gap-3 font-serif text-lg font-semibold text-ink">
-            <span className="flex h-9 w-9 items-center justify-center rounded-full bg-ink text-sm text-porcelain shadow-[0_5px_14px_rgba(22,35,61,0.12)] transition-transform group-hover:rotate-6">RA</span>
-            <span>Rakib Ahmed</span>
-          </Link>
-          <p className="mt-4 max-w-xs text-sm leading-relaxed text-ink/65">
-            Helping businesses get found, trusted, and chosen online.
+    <footer className="border-t border-line">
+      <div className="mx-auto max-w-6xl px-6 pb-10 pt-16">
+        <div className="flex flex-wrap items-end justify-between gap-8">
+          <div>
+            <p className="font-display text-4xl font-extrabold uppercase leading-none tracking-tight text-porcelain sm:text-5xl">
+              Rakib<span className="text-signal">.</span>
+            </p>
+            <p className="mt-3 font-mono text-[11px] uppercase tracking-[0.28em] text-mist">
+              Web Studio — Business Growth Partner
+            </p>
+          </div>
+          <p className="flex items-center gap-2.5 font-mono text-[11px] uppercase tracking-[0.18em] text-mist">
+            <span className="relative flex h-2 w-2">
+              <span className="absolute h-full w-full animate-ping rounded-full bg-signal opacity-60" />
+              <span className="h-2 w-2 rounded-full bg-signal" />
+            </span>
+            Working with clients worldwide
           </p>
         </div>
 
-        <div className="flex flex-col gap-2 text-sm text-ink/65">
-          <p className="mb-1 text-xs uppercase tracking-[0.16em] text-forest">Contact</p>
-          <a href="mailto:rakib.official13155@gmail.com" className="transition-colors hover:text-ink">
-            rakib.official13155@gmail.com
-          </a>
-          <a href="tel:+8801577173135" className="transition-colors hover:text-ink">
-            +8801577173135
-          </a>
-          <a
-            href="https://www.linkedin.com/in/rafsaanrakib"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="transition-colors hover:text-ink"
-          >
-            LinkedIn
-          </a>
+        <div className="mt-14 grid gap-10 border-t border-line pt-10 sm:grid-cols-3">
+          <div className="flex flex-col gap-2.5 text-sm text-mist">
+            <p className="mb-1 font-mono text-[11px] uppercase tracking-[0.22em] text-porcelain">Contact</p>
+            <a href={`mailto:${site.email}`} className="break-words hover:text-porcelain">{site.email}</a>
+            <a href={whatsappLink()} target="_blank" rel="noopener noreferrer" className="hover:text-porcelain">
+              WhatsApp {site.whatsappDisplay}
+            </a>
+            <a href={site.googleProfile} target="_blank" rel="noopener noreferrer" className="hover:text-porcelain">
+              Google profile &amp; reviews
+            </a>
+          </div>
+          <div className="flex flex-col gap-2.5 text-sm text-mist">
+            <p className="mb-1 font-mono text-[11px] uppercase tracking-[0.22em] text-porcelain">Follow</p>
+            {socials.map((s) => (
+              <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer" className="hover:text-porcelain">
+                {s.label}
+              </a>
+            ))}
+          </div>
+          <div className="flex flex-col gap-2.5 text-sm text-mist">
+            <p className="mb-1 font-mono text-[11px] uppercase tracking-[0.22em] text-porcelain">Explore</p>
+            <Link href="/services" className="hover:text-porcelain">Services</Link>
+            <Link href="/work" className="hover:text-porcelain">Work</Link>
+            <Link href="/tools" className="hover:text-porcelain">Free Tools</Link>
+            <Link href="/blog" className="hover:text-porcelain">Blog</Link>
+            <Link href="/ebook" className="hover:text-porcelain">The Book — $11.99</Link>
+            <Link href="/privacy" className="hover:text-porcelain">Privacy</Link>
+          </div>
         </div>
 
-        <div className="flex flex-col gap-2 text-sm text-ink/65">
-          <p className="mb-1 text-xs uppercase tracking-[0.16em] text-forest">Explore</p>
-          <Link href="/work" className="transition-colors hover:text-ink">Work</Link>
-          <Link href="/services" className="transition-colors hover:text-ink">Services</Link>
-          <Link href="/blog" className="transition-colors hover:text-ink">Blog</Link>
-          <Link href="/newsletter" className="transition-colors hover:text-ink">Newsletter</Link>
-          <Link href="/ebook" className="transition-colors hover:text-ink">Ebook</Link>
-        </div>
+        <p className="mt-14 border-t border-line pt-5 font-mono text-[11px] uppercase tracking-[0.18em] text-mist/60">
+          © {new Date().getFullYear()} Rakib Web Studio — Rakib Ahmed · Based in {site.location} · Working worldwide
+        </p>
       </div>
-
-      <p className="border-t border-line px-6 py-4 text-center text-xs text-ink/45">
-        © {new Date().getFullYear()} Rakib Ahmed.
-      </p>
     </footer>
   );
 }
