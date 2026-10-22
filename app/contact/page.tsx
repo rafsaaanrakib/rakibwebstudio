@@ -4,6 +4,7 @@ import ContactForm from "@/components/ContactForm";
 import { site, whatsappLink } from "@/data/site";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/contact" },
   title: "Contact — Tell Me About Your Project",
   description:
     "Contact Rakib Web Studio for websites, SEO, ads, content, social and video growth work. Replies within one business day, for clients worldwide.",

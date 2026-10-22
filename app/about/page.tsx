@@ -3,9 +3,10 @@ import Link from "next/link";
 import Reveal from "@/components/Reveal";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/about" },
   title: "About — Rakib Ahmed",
   description:
-    "Rakib Ahmed is the founder of Rakib Web Studio, a business growth partner for brands and online stores worldwide: websites, SEO, ads, content, social and video as one system.",
+    "Rakib Ahmed, founder of Rakib Web Studio: websites, SEO, ads, content, social and video run as one growth system for brands and online stores.",
 };
 
 const experience = [

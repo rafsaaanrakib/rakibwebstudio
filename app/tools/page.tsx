@@ -5,9 +5,10 @@ import PriceEstimator from "@/components/PriceEstimator";
 import HookGenerator from "@/components/HookGenerator";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/tools" },
   title: "Free Tools — Audit, Price Estimator & Reel Hooks",
   description:
-    "Free tools from Rakib Web Studio: an instant website audit self-check, a project price estimator in USD, and a Reel hook generator. No email wall for the first result.",
+    "Free tools from Rakib Web Studio: an instant website audit, a project price estimator in USD, and a Reel hook generator. No email wall.",
 };
 
 export default function ToolsPage() {

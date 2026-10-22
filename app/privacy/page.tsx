@@ -3,6 +3,7 @@ import Reveal from "@/components/Reveal";
 import { site } from "@/data/site";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/privacy" },
   title: "Privacy",
   description: "How Rakib Web Studio handles information on this website.",
 };

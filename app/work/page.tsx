@@ -5,6 +5,7 @@ import TiltCard from "@/components/TiltCard";
 import { projects } from "@/data/projects";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/work" },
   title: "Work — Case Studies",
   description:
     "Case studies from Rakib Web Studio: e-commerce builds, product launches, full online setups, SEO and video for brands and online stores.",

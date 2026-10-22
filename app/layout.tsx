@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     template: "%s | Rakib Web Studio",
   },
   description:
-    "Rakib Web Studio is a business growth partner: strategy, websites, SEO, ads, content, social and video run as one growth system for brands and online stores worldwide.",
+    "Rakib Web Studio is a business growth partner: websites, SEO, ads, content, social and video as one growth system for brands and online stores worldwide.",
   keywords: [
     "business growth partner",
     "web development",
@@ -46,7 +46,6 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Rakib Ahmed" }],
   creator: "Rakib Ahmed",
-  alternates: { canonical: "/" },
   openGraph: {
     type: "website",
     locale: "en_US",

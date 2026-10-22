@@ -5,6 +5,11 @@ import { services } from "@/data/services";
 import { projects } from "@/data/projects";
 import { posts } from "@/data/posts";
 import { site, whatsappLink } from "@/data/site";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+};
 
 // Globe is a client-only component — load it lazily so the page (and SEO
 // content) never waits on it.

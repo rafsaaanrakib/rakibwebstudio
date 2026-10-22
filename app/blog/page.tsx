@@ -4,6 +4,7 @@ import Reveal from "@/components/Reveal";
 import { posts } from "@/data/posts";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/blog" },
   title: "Blog — Notes on Growing a Business Online",
   description:
     "Practical notes on websites that sell, SEO in plain English, and short-form video — from real client work at Rakib Web Studio.",

@@ -4,6 +4,7 @@ import Reveal from "@/components/Reveal";
 import { services } from "@/data/services";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/services" },
   title: "Services — The Growth System",
   description:
     "Every service a business needs to grow online: websites, SEO, video, content, ads, analytics and ongoing care — as one system or one tool at a time.",

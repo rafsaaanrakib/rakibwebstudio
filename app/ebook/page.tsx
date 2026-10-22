@@ -4,6 +4,7 @@ import Reveal from "@/components/Reveal";
 import { site, whatsappLink } from "@/data/site";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/ebook" },
   title: "Website to Customers — The Book by Rakib Ahmed",
   description:
     "Website to Customers: a simple system for turning visitors into paying clients. 14 chapters, a 30-day action plan and fill-in worksheets. PDF, $11.99.",

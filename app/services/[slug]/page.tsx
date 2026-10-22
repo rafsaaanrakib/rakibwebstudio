@@ -14,6 +14,7 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
   return {
     title: `${service.title} — Rakib Web Studio`,
     description: service.copy,
+    alternates: { canonical: `/services/${params.slug}` },
   };
 }
 
