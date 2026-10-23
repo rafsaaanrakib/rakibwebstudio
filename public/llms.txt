@@ -23,6 +23,10 @@
 
 ## Writing
 
+- [Blog](https://rakibwebstudio.com/blog): Posts on turning website visitors into customers — conversion, SEO and growth systems.
+- [Newsletter](https://rakibwebstudio.com/newsletter): One email whenever a new post goes live. Free; subscribing includes the 5 Leaks checklist.
+- [The 5 Leaks Checklist](https://rakibwebstudio.com/checklist): A ten-minute self-audit of the five places business websites lose customers.
+- [RSS Feed](https://rakibwebstudio.com/rss.xml): The blog as an RSS feed.
 - [Building WearZana From Scratch](https://rakibwebstudio.com/blog/building-wearzana-from-scratch)
 - [The SEO Checklist for a Growing Business](https://rakibwebstudio.com/blog/seo-checklist-growing-business)
 
