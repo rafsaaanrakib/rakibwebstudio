@@ -11,6 +11,21 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "why-i-rebuilt-my-website",
+    title: "I rebuilt my website from zero \u2014 and moved to rakibwebstudio.com",
+    date: "2026-10-23",
+    excerpt: "The old site sold \"SEO services\" \u2014 the studio sells growth. Why I rebuilt everything, moved to rakibwebstudio.com, and what the first day looked like.",
+    body: [
+      "Yesterday I deleted my old website and replaced it with this one. New design, new system, new address: rakibwebstudio.com.",
+      "The old site wasn't broken. It was worse than broken \u2014 it was saying the wrong thing. It described a freelancer who sells \"SEO services\" and \"web development.\" But that's never really been the work. The work is growth: the website, the search visibility, the ads, the content, the social, the video \u2014 everything a business needs to turn strangers into customers, run as one system. If my own website couldn't say that clearly, why would a client trust me to say it for them?",
+      "So the rebuild started with words, not design. One promise, readable in five seconds: everything your business needs to grow. Interestingly, that's the exact first leak I wrote about in [my breakdown of why websites don't turn visitors into customers](/blog/why-website-not-turning-visitors-into-customers) \u2014 unclear in the first five seconds. My old site had it. Now it doesn't.",
+      "The design took longer than the words. The first versions I reviewed looked like every other agency site \u2014 bright colours, busy gradients, boxes everywhere. It looked cheap, and I kept sending it back. What finally worked was restraint: near-black, warm bone text, big editorial type, hairline rules instead of cards \u2014 and one piece of playfulness I refused to cut: an [interactive globe on the homepage](/) that you can grab and spin, dotted with real geography and markers from Chattogram to New York, London, Dubai and Sydney. Based in Bangladesh, working worldwide. The globe is the positioning, drawn.",
+      "Under the hood it changed too. The site now runs on Cloudflare with its code on GitHub, so every improvement deploys automatically \u2014 yesterday alone I shipped a dozen fixes and features the same day they were found. The [book I wrote on turning visitors into customers](/ebook) has its own page. The [free tools](/tools) \u2014 a website audit, a price estimator, a Reel hook generator \u2014 are live for anyone to use, no email wall.",
+      "And the first day? 36 people visited. The most-viewed page after the homepage was the book. One visitor even arrived through Meta AI \u2014 an AI assistant had read the site and sent them over, on day one. Small numbers, honestly reported. But the direction is the whole point: a website that says one clear thing, in one clear place, gets found \u2014 by people, and now by the machines people ask.",
+      "If your website still describes what you used to do instead of what you actually do, you don't have a traffic problem. You have a clarity problem \u2014 and it's the cheapest one to fix. Start with the free audit on this site; it's the same checklist I ran on my own rebuild.",
+    ],
+  },
+  {
     slug: "why-website-not-turning-visitors-into-customers",
     title: "Why your website isn't turning visitors into customers (and the system that fixes it)",
     date: "2026-10-22",
