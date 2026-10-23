@@ -47,6 +47,11 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Rakib Ahmed" }],
   creator: "Rakib Ahmed",
+  alternates: {
+    types: {
+      "application/rss+xml": [{ url: "/rss.xml", title: "Rakib Web Studio — Blog RSS" }],
+    },
+  },
   openGraph: {
     type: "website",
     locale: "en_US",

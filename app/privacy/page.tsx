@@ -34,6 +34,12 @@ export default function PrivacyPage() {
             only to reply to you and discuss your project.
           </p>
           <p>
+            If you subscribe to the newsletter, your email address is stored
+            with our email provider (Resend) and used only to send you new
+            blog posts and the free checklist. It is never sold or shared, and
+            every email carries a one-click unsubscribe link.
+          </p>
+          <p>
             Questions about privacy: email{" "}
             <a href={`mailto:${site.email}`} className="text-mint underline decoration-accent decoration-2 underline-offset-4">
               {site.email}

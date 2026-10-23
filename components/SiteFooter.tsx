@@ -1,4 +1,5 @@
 import Link from "next/link";
+import SubscribeForm from "@/components/SubscribeForm";
 import { site, whatsappLink } from "@/data/site";
 
 const socials = [
@@ -31,6 +32,20 @@ export default function SiteFooter() {
           </p>
         </div>
 
+        <div className="mt-14 grid items-end gap-8 border-t border-line pt-10 lg:grid-cols-2">
+          <div>
+            <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-porcelain">
+              The Newsletter
+            </p>
+            <p className="mt-3 max-w-md text-sm leading-relaxed text-mist">
+              One email whenever a new post goes live — the systems that turn
+              visitors into customers. Subscribe and the first email brings the
+              free <Link href="/checklist" className="font-medium text-porcelain underline decoration-porcelain/40 underline-offset-4 hover:decoration-signal">5 Leaks checklist</Link>.
+            </p>
+          </div>
+          <SubscribeForm source="footer" />
+        </div>
+
         <div className="mt-14 grid gap-10 border-t border-line pt-10 sm:grid-cols-3">
           <div className="flex flex-col gap-2.5 text-sm text-mist">
             <p className="mb-1 font-mono text-[11px] uppercase tracking-[0.22em] text-porcelain">Contact</p>
@@ -57,6 +72,7 @@ export default function SiteFooter() {
             <Link href="/tools" className="hover:text-porcelain">Free Tools</Link>
             <Link href="/blog" className="hover:text-porcelain">Blog</Link>
             <Link href="/ebook" className="hover:text-porcelain">The Book — $11.99</Link>
+            <Link href="/newsletter" className="hover:text-porcelain">Newsletter</Link>
             <Link href="/privacy" className="hover:text-porcelain">Privacy</Link>
           </div>
         </div>

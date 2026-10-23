@@ -1,10 +1,14 @@
-# Rakib Web Studio — Cloudflare Workers static assets deployment.
-# The site is a 100% static Next.js export; `npm run build` writes ./out
-# and Wrangler serves that folder. No Worker script is used.
+# Rakib Web Studio — Cloudflare Worker + static assets deployment.
+# The site is a static Next.js export (`npm run build` writes ./out);
+# worker.js fronts it to run the newsletter API (subscribe / unsubscribe
+# / send-latest) and legacy redirects. Everything else falls through to
+# the static assets.
 name = "rakibwebstudio"
+main = "worker.js"
 compatibility_date = "2025-04-01"
 
 [assets]
 directory = "./out"
+binding = "ASSETS"
 not_found_handling = "404-page"
 html_handling = "auto-trailing-slash"

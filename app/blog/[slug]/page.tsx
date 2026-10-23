@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import Reveal from "@/components/Reveal";
+import SubscribeForm from "@/components/SubscribeForm";
 import { posts, getPost } from "@/data/posts";
 
 export function generateStaticParams() {
@@ -81,6 +82,17 @@ export default function PostPage({ params }: { params: { slug: string } }) {
               Talk to Rakib
             </Link>
           </div>
+        </div>
+
+        <div className="mt-6 rounded-2xl border border-line bg-panel p-7">
+          <h2 className="font-serif text-xl font-semibold text-porcelain">
+            Get the next post by email
+          </h2>
+          <p className="mb-5 mt-2 text-sm leading-relaxed text-mist">
+            One email whenever a new post goes live — and the free 5 Leaks
+            checklist in your first one.
+          </p>
+          <SubscribeForm source="blog-post" />
         </div>
       </Reveal>
     </div>
