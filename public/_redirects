@@ -1,0 +1,4 @@
+# Legacy URLs from the old site — keep old links and bookmarks working.
+# (Workers static assets: targets must be relative paths.)
+/blog/seo-checklist-local-business /blog/seo-checklist-growing-business 301
+/newsletter /blog 301
