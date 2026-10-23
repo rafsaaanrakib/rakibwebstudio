@@ -49,6 +49,16 @@ export default {
     if (path === "/api/send-latest" && request.method === "POST") {
       return handleSendLatest(request, env);
     }
+    if (path === "/" && request.method !== "GET" && request.method !== "HEAD") {
+      // Credential probes (e.g. vault connection checks) may POST to the
+      // root with the secret header. Answer them here instead of letting
+      // the static asset handler 405: 200 with the right secret, else 401.
+      if (!configured(env)) return json({ ok: false, error: "not configured" }, 503);
+      if (request.headers.get("x-newsletter-secret") !== env.NEWSLETTER_SECRET) {
+        return json({ ok: false, error: "unauthorised" }, 401);
+      }
+      return json({ ok: true });
+    }
     if (path === "/api/health") {
       // Side-effect-free credential check (used by Muse's vault connector
       // validation): 200 only when the caller presents the right secret.
