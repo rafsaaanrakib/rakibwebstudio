@@ -7,9 +7,13 @@
 //
 // Required Worker secrets/variables (Cloudflare dashboard → Settings):
 //   RESEND_API_KEY      Resend API key with full access
-//   RESEND_AUDIENCE_ID  Resend audience that holds the subscribers
 //   NEWSLETTER_SECRET   random string; signs unsubscribe tokens and
 //                       authorises POST /api/send-latest
+//   RESEND_SEGMENT_ID   optional — the Worker auto-discovers the
+//                       account's segment at send time when unset
+//
+// Built against Resend's current API (contacts are global; broadcasts
+// target a segment — the old "audiences" model is deprecated).
 //
 // Routes:
 //   POST /api/subscribe     { email } → adds contact + sends welcome email
@@ -127,7 +131,7 @@ async function resend(env, path, options = {}) {
 }
 
 function configured(env) {
-  return Boolean(env.RESEND_API_KEY && env.RESEND_AUDIENCE_ID && env.NEWSLETTER_SECRET);
+  return Boolean(env.RESEND_API_KEY && env.NEWSLETTER_SECRET);
 }
 
 // ---------- subscribe ----------
@@ -154,7 +158,7 @@ async function handleSubscribe(request, env) {
 
   const created = await resend(env, "/contacts", {
     method: "POST",
-    body: JSON.stringify({ email, audience_id: env.RESEND_AUDIENCE_ID, unsubscribed: false }),
+    body: JSON.stringify({ email, unsubscribed: false }),
   });
 
   if (!created.ok) {
@@ -182,15 +186,16 @@ async function handleSubscribe(request, env) {
 // ---------- unsubscribe ----------
 
 async function setUnsubscribed(env, email) {
-  const list = await resend(env, `/audiences/${env.RESEND_AUDIENCE_ID}/contacts?limit=100`);
+  const list = await resend(env, `/contacts?limit=100`);
   const contact = list.data?.data?.find((c) => c.email?.toLowerCase() === email);
-  if (!contact) return false;
-  const attempts = [
-    [`/contacts/${contact.id}`, "PATCH"],
-    [`/audiences/${env.RESEND_AUDIENCE_ID}/contacts/${contact.id}`, "PATCH"],
-  ];
-  for (const [path, method] of attempts) {
-    const r = await resend(env, path, { method, body: JSON.stringify({ unsubscribed: true }) });
+  const attempts = [];
+  if (contact?.id) attempts.push(`/contacts/${contact.id}`);
+  attempts.push(`/contacts/${encodeURIComponent(email)}`);
+  for (const path of attempts) {
+    const r = await resend(env, path, {
+      method: "PATCH",
+      body: JSON.stringify({ unsubscribed: true }),
+    });
     if (r.ok) return true;
   }
   return false;
@@ -279,27 +284,42 @@ async function handleSendLatest(request, env) {
   );
   if (dupe) return json({ ok: false, error: `Already sent (${name}).` }, 409);
 
+  // Resolve the target: broadcasts need a segment_id in Resend's current
+  // API (audience_id is the deprecated alias). Prefer the env override,
+  // then auto-discover the account's first segment, then the legacy
+  // audience as a last resort.
+  let target = {};
+  if (env.RESEND_SEGMENT_ID) {
+    target = { segment_id: env.RESEND_SEGMENT_ID };
+  } else {
+    const segments = await resend(env, "/segments");
+    const segId = segments.data?.data?.[0]?.id;
+    if (segId) {
+      target = { segment_id: segId };
+    } else {
+      const audiences = await resend(env, "/audiences");
+      const audId = audiences.data?.data?.[0]?.id;
+      if (audId) target = { audience_id: audId };
+    }
+  }
+  if (!target.segment_id && !target.audience_id) {
+    return json({ error: "No Resend segment or audience found to send to." }, 502);
+  }
+
   const created = await resend(env, "/broadcasts", {
     method: "POST",
     body: JSON.stringify({
-      audience_id: env.RESEND_AUDIENCE_ID,
+      ...target,
       from: FROM,
       reply_to: REPLY_TO,
       subject: title,
       name,
       html: postEmailHtml({ title, link, excerpt, pubDate }),
+      send: true,
     }),
   });
   if (!created.ok || !created.data?.id) {
     return json({ error: "Broadcast creation failed.", detail: created.text?.slice(0, 200) }, 502);
-  }
-
-  const sent = await resend(env, `/broadcasts/${created.data.id}/send`, {
-    method: "POST",
-    body: JSON.stringify({}),
-  });
-  if (!sent.ok) {
-    return json({ error: "Broadcast created but send failed.", broadcast_id: created.data.id }, 502);
   }
 
   return json({ ok: true, broadcast_id: created.data.id, post: slug });
