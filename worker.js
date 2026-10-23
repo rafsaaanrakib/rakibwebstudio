@@ -49,6 +49,15 @@ export default {
     if (path === "/api/send-latest" && request.method === "POST") {
       return handleSendLatest(request, env);
     }
+    if (path === "/api/health") {
+      // Side-effect-free credential check (used by Muse's vault connector
+      // validation): 200 only when the caller presents the right secret.
+      if (!configured(env)) return json({ ok: false, error: "not configured" }, 503);
+      if (request.headers.get("x-newsletter-secret") !== env.NEWSLETTER_SECRET) {
+        return json({ ok: false, error: "unauthorised" }, 401);
+      }
+      return json({ ok: true });
+    }
     if (path.startsWith("/api/")) {
       return json({ error: "Not found" }, 404);
     }
