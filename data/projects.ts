@@ -30,6 +30,7 @@ export const projects: Project[] = [
       "Designed and built the entire e-commerce site — responsive UI, product pages, cart and checkout, backend functionality. Now run SEO (keyword research, on-page optimization, technical structure) and Facebook ad campaigns, tracking performance through Analytics and Search Console to keep improving conversions. This is the growth system in action: one partner for the build, the search visibility and the ads.",
     deliverables: ["Responsive e-commerce build", "SEO and technical structure", "Facebook ads and measurement"],
     link: "https://wearzana.com",
+    video: "/videos/wearzana.mp4",
   },
   {
     slug: "rewiso",
@@ -43,6 +44,7 @@ export const projects: Project[] = [
       "Rewiso is my own product: a spending journal with 5-second purchase logging, next-day Glad / Meh / Regret check-ins, trigger insights, a 24-hour wait list, monthly trends and CSV export. Building and marketing my own product keeps my growth advice honest — I test on Rewiso what I recommend to clients.",
     deliverables: ["Product design and build", "Launch and growth on Instagram and X", "Landing page at rewiso.vercel.app"],
     link: "https://rewiso.vercel.app",
+    video: "/videos/rewiso.mp4",
   },
   {
     slug: "fish-and-family",
@@ -55,6 +57,7 @@ export const projects: Project[] = [
     detail:
       "As digital marketing consultant, I created and optimized Fish & Family's Facebook Page, WhatsApp Business account and Google Business Profile from scratch, and I shoot and script product videos that show freshness and build the trust a food delivery business lives on.",
     deliverables: ["Facebook Page setup and optimization", "WhatsApp Business and Google Business Profile", "Product video shooting and scripting"],
+    video: "/videos/fish-and-family.mp4",
   },
   {
     slug: "peerlesshouse",
@@ -67,6 +70,7 @@ export const projects: Project[] = [
     detail:
       "Built a custom WordPress site for this affiliate marketing startup — brand-matched design, responsive across devices, a robust affiliate link/banner system, full SEO optimization, an easy-to-use content management setup, and analytics integration for data-driven decisions.",
     deliverables: ["Custom WordPress design", "Affiliate link management", "SEO and analytics setup"],
+    video: "/videos/peerlesshouse.mp4",
   },
 ];
 
