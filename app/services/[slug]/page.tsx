@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import Reveal from "@/components/Reveal";
+import ChecklistCTA from "@/components/ChecklistCTA";
 import { services, getService } from "@/data/services";
+import { whatsappLink } from "@/data/site";
 
 export function generateStaticParams() {
   return services.map((s) => ({ slug: s.slug }));
@@ -53,11 +55,23 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
           <Link href="/contact" className="bg-accent px-6 py-3 text-sm font-semibold text-night transition hover:bg-porcelain">
             Start with {service.shortTitle}
           </Link>
+          <a
+            href={whatsappLink(`Hi Rakib, I'm interested in ${service.title}.`)}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="border border-line px-6 py-3 text-sm font-semibold text-porcelain transition hover:border-accent hover:text-accent"
+          >
+            WhatsApp me instead
+          </a>
           <Link href="/tools" className="border border-line px-6 py-3 text-sm font-semibold text-porcelain transition hover:border-accent hover:text-accent">
             Try the free tools first
           </Link>
         </div>
       </Reveal>
+
+      <div className="mt-14">
+        <ChecklistCTA source={`service-${service.slug}`} />
+      </div>
 
       <div className="mt-16 border-t border-line pt-10">
         <h2 className="font-serif text-xl font-semibold text-porcelain">Works even better combined with</h2>

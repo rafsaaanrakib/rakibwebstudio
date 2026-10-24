@@ -18,6 +18,38 @@ const questions = [
 // client projects. It is a self-assessment, not an automated site crawl.
 export default function AuditChecklist() {
   const [checked, setChecked] = useState<Record<number, boolean>>({});
+  const [email, setEmail] = useState("");
+  const [reportStatus, setReportStatus] = useState<"idle" | "sending" | "done" | "error">("idle");
+  const [reportMessage, setReportMessage] = useState("");
+
+  async function sendReport(e: React.FormEvent) {
+    e.preventDefault();
+    if (reportStatus === "sending") return;
+    setReportStatus("sending");
+    setReportMessage("");
+    try {
+      const res = await fetch("/api/audit-report", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email,
+          score,
+          total: questions.length,
+          missing: questions.filter((_, i) => !checked[i]),
+        }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (res.ok && data.ok) {
+        setReportStatus("done");
+      } else {
+        setReportStatus("error");
+        setReportMessage(data.error || "Something went wrong — please try again.");
+      }
+    } catch {
+      setReportStatus("error");
+      setReportMessage("Network error — please try again.");
+    }
+  }
 
   const score = useMemo(
     () => Object.values(checked).filter(Boolean).length,
@@ -75,6 +107,42 @@ export default function AuditChecklist() {
             >
               Get the full free audit
             </Link>
+
+            {reportStatus === "done" ? (
+              <p className="mt-5 border border-line bg-panel px-4 py-3 text-sm leading-relaxed text-porcelain">
+                Your report is on its way to <span className="font-semibold">{email}</span> — score,
+                your leaks, and the 5 Leaks checklist.
+              </p>
+            ) : (
+              <form onSubmit={sendReport} className="mt-5" noValidate>
+                <label htmlFor="audit-email" className="text-xs uppercase tracking-[0.14em] text-mist">
+                  Email me this report
+                </label>
+                <div className="mt-2 flex flex-col gap-3 sm:flex-row">
+                  <input
+                    id="audit-email"
+                    type="email"
+                    required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="you@company.com"
+                    className="w-full border border-line bg-transparent px-4 py-2.5 text-sm text-porcelain placeholder:text-mist/50 focus:border-porcelain/60 focus:outline-none"
+                  />
+                  <button
+                    type="submit"
+                    disabled={reportStatus === "sending"}
+                    className="shrink-0 bg-porcelain px-5 py-2.5 text-sm font-semibold text-night transition hover:bg-accent disabled:opacity-60"
+                  >
+                    {reportStatus === "sending" ? "Sending…" : "Send my report"}
+                  </button>
+                </div>
+                {reportStatus === "error" && <p className="mt-3 text-sm text-red-300">{reportMessage}</p>}
+                <p className="mt-2.5 text-xs leading-relaxed text-mist/70">
+                  You&apos;ll also join the newsletter — one email per new post,
+                  unsubscribe in one click. No spam, ever.
+                </p>
+              </form>
+            )}
           </>
         )}
       </div>

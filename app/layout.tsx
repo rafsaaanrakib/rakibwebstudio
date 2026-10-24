@@ -4,6 +4,7 @@ import { Archivo, Piazzolla, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
+import SmoothScroll from "@/components/SmoothScroll";
 import { site } from "@/data/site";
 
 // Type system v3: Archivo grotesque for display + body, IBM Plex Mono for
@@ -87,6 +88,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${archivo.variable} ${piazzolla.variable} ${plexMono.variable}`}>
       <body className="bg-night font-sans text-porcelain antialiased">
+        <SmoothScroll />
         <SiteHeader />
         <main>{children}</main>
         <SiteFooter />

@@ -1,6 +1,7 @@
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import Reveal from "@/components/Reveal";
+import Routes from "@/components/Routes";
 import { services } from "@/data/services";
 import { projects } from "@/data/projects";
 import { posts } from "@/data/posts";
@@ -94,6 +95,17 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ---------- PROOF STRIP ---------- */}
+      <section className="border-y border-line">
+        <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-x-8 gap-y-3 px-6 py-5 font-mono text-[11px] uppercase tracking-[0.18em] text-mist">
+          <span><span className="text-porcelain">04</span> case studies</span>
+          <span><span className="text-porcelain">09</span> growth services</span>
+          <span><span className="text-porcelain">03</span> free tools</span>
+          <span><span className="text-porcelain">01</span> book</span>
+          <span><span className="text-porcelain">01</span> partner — the whole system</span>
+        </div>
+      </section>
+
       {/* ---------- STATEMENT ---------- */}
       <section className="mx-auto max-w-6xl px-6 py-20 sm:py-28">
         <Reveal>
@@ -108,6 +120,14 @@ export default function Home() {
             working together. Pick one tool, or hand me the whole system.
           </p>
         </Reveal>
+      </section>
+
+      {/* ---------- ROUTES ---------- */}
+      <section className="mx-auto max-w-6xl px-6 pb-20 sm:pb-28">
+        <SectionHead label="Three ways to work together" href="/services" linkText="How it works" />
+        <div className="mt-2">
+          <Routes />
+        </div>
       </section>
 
       {/* ---------- SERVICES INDEX ---------- */}
@@ -154,7 +174,10 @@ export default function Home() {
                   </span>
                   <span className="mt-1.5 block font-mono text-[11px] uppercase tracking-[0.18em] text-mist">{p.tag}</span>
                 </span>
-                <span className="text-sm leading-relaxed text-mist">{p.result}</span>
+                <span>
+                  <span className="block text-sm font-medium leading-relaxed text-porcelain">{p.outcome}</span>
+                  <span className="mt-1 block text-sm leading-relaxed text-mist">{p.result}</span>
+                </span>
                 <span className="hidden text-porcelain opacity-0 transition group-hover:opacity-100 sm:block">→</span>
               </Link>
             </Reveal>

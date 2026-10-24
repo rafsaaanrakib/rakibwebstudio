@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import Reveal from "@/components/Reveal";
+import ChecklistCTA from "@/components/ChecklistCTA";
 import { projects, getProject } from "@/data/projects";
 
 export function generateStaticParams() {
@@ -33,7 +34,35 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
         <p className="mt-8 text-xs uppercase tracking-[0.16em] text-mint">{project.tag}</p>
         <h1 className="mt-3 font-display text-4xl font-extrabold uppercase leading-[1.02] tracking-tight text-porcelain sm:text-6xl">{project.name}</h1>
         <p className="mt-5 max-w-prose font-serif text-xl leading-relaxed text-porcelain/90">{project.result}</p>
-        <p className="mt-6 max-w-prose text-base leading-relaxed text-mist">{project.detail}</p>
+
+        {/* Outcome strip — the result before the story (gap fix, 2026-10-24) */}
+        <div className="mt-9 border-y border-line py-6">
+          <p className="font-mono text-[11px] uppercase tracking-[0.24em] text-mist">The outcome</p>
+          <p className="mt-3 font-display text-2xl font-extrabold uppercase leading-tight tracking-tight text-porcelain sm:text-3xl">
+            {project.outcome}
+          </p>
+          <p className="mt-4 flex flex-wrap gap-x-3 gap-y-2 font-mono text-[11px] uppercase tracking-[0.16em] text-mist">
+            {project.outcomePoints.map((pt, i) => (
+              <span key={pt}>
+                {pt}
+                {i < project.outcomePoints.length - 1 && <span className="ml-3 text-signal">·</span>}
+              </span>
+            ))}
+          </p>
+        </div>
+
+        {project.video && (
+          <video
+            className="mt-10 w-full border border-line"
+            src={project.video}
+            autoPlay
+            muted
+            loop
+            playsInline
+          />
+        )}
+
+        <p className="mt-8 max-w-prose text-base leading-relaxed text-mist">{project.detail}</p>
 
         <h2 className="mt-12 font-serif text-2xl font-semibold text-porcelain">Delivered</h2>
         <ul className="mt-5 space-y-2.5">
@@ -61,6 +90,10 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
           </Link>
         </div>
       </Reveal>
+
+      <div className="mt-14">
+        <ChecklistCTA source={`work-${project.slug}`} />
+      </div>
 
       <div className="mt-16 border-t border-line pt-10">
         <h2 className="font-serif text-xl font-semibold text-porcelain">More work</h2>

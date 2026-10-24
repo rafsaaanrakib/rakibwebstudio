@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Reveal from "@/components/Reveal";
+import ChecklistCTA from "@/components/ChecklistCTA";
 import AuditChecklist from "@/components/AuditChecklist";
 import PriceEstimator from "@/components/PriceEstimator";
 import HookGenerator from "@/components/HookGenerator";
@@ -36,6 +37,7 @@ export default function ToolsPage() {
         <Reveal>
           <HookGenerator />
         </Reveal>
+        <ChecklistCTA source="tools" />
       </div>
     </div>
   );

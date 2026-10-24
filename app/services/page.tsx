@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Reveal from "@/components/Reveal";
+import Routes from "@/components/Routes";
+import ChecklistCTA from "@/components/ChecklistCTA";
 import { services } from "@/data/services";
 
 export const metadata: Metadata = {
@@ -25,7 +27,21 @@ export default function ServicesPage() {
         </p>
       </Reveal>
 
-      <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="mt-16">
+        <Reveal>
+          <div className="flex items-baseline justify-between gap-6 border-b border-line pb-4">
+            <p className="font-mono text-[11px] uppercase tracking-[0.24em] text-mist">Three ways to work together</p>
+          </div>
+        </Reveal>
+        <Routes />
+      </div>
+
+      <Reveal>
+        <div className="mb-8 mt-20 flex items-baseline justify-between gap-6 border-b border-line pb-4">
+          <p className="font-mono text-[11px] uppercase tracking-[0.24em] text-mist">Or pick a single tool — 09 services</p>
+        </div>
+      </Reveal>
+      <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {services.map((s, i) => (
           <Reveal key={s.slug} delay={i * 0.04}>
             <Link
@@ -45,6 +61,10 @@ export default function ServicesPage() {
             </Link>
           </Reveal>
         ))}
+      </div>
+
+      <div className="mt-16">
+        <ChecklistCTA source="services" />
       </div>
     </div>
   );

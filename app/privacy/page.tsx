@@ -37,7 +37,10 @@ export default function PrivacyPage() {
             If you subscribe to the newsletter, your email address is stored
             with our email provider (Resend) and used only to send you new
             blog posts and the free checklist. It is never sold or shared, and
-            every email carries a one-click unsubscribe link.
+            every email carries a one-click unsubscribe link. If you ask for
+            the free website-audit report by email, the same applies: your
+            address is used to send that report and the newsletter, and for
+            nothing else.
           </p>
           <p>
             Questions about privacy: email{" "}

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Reveal from "@/components/Reveal";
 import TiltCard from "@/components/TiltCard";
+import ChecklistCTA from "@/components/ChecklistCTA";
 import { projects } from "@/data/projects";
 
 export const metadata: Metadata = {
@@ -33,12 +34,17 @@ export default function WorkPage() {
                 <p className="text-xs uppercase tracking-[0.16em] text-mint">{p.tag}</p>
                 <h2 className="mt-4 font-serif text-2xl font-semibold text-porcelain">{p.name}</h2>
                 <p className="mt-3 text-sm leading-relaxed text-mist">{p.copy}</p>
-                <p className="mt-4 text-sm font-medium text-porcelain">{p.result}</p>
+                <p className="mt-4 font-display text-base font-bold uppercase leading-snug tracking-tight text-porcelain">{p.outcome}</p>
+                <p className="mt-2 text-sm font-medium text-porcelain/80">{p.result}</p>
                 <p className="mt-5 text-sm font-semibold text-accent">Read the case study →</p>
               </Link>
             </TiltCard>
           </Reveal>
         ))}
+      </div>
+
+      <div className="mt-16">
+        <ChecklistCTA source="work" />
       </div>
 
       <Reveal delay={0.1} className="mt-16">

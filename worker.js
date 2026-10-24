@@ -43,6 +43,9 @@ export default {
     if (path === "/api/subscribe" && request.method === "POST") {
       return handleSubscribe(request, env);
     }
+    if (path === "/api/audit-report" && request.method === "POST") {
+      return handleAuditReport(request, env);
+    }
     if (path === "/api/unsubscribe" && (request.method === "GET" || request.method === "POST")) {
       return handleUnsubscribe(request, env, url);
     }
@@ -200,6 +203,96 @@ async function handleSubscribe(request, env) {
   });
 
   return json({ ok: true });
+}
+
+// ---------- audit report ----------
+// The /tools self-audit offers "email me this report": creates the
+// contact (the form says plainly that it also joins the newsletter) and
+// sends the visitor their score + the items they didn't tick — the
+// WebFX/Neil pattern of a diagnostic tool feeding the list, run on the
+// studio's own machinery.
+
+function escHtml(s) {
+  return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+}
+
+async function handleAuditReport(request, env) {
+  if (!configured(env)) {
+    return json({ error: "Email reports are being set up — please try again in a day or two." }, 503);
+  }
+
+  let body;
+  try {
+    body = await request.json();
+  } catch {
+    return json({ error: "Invalid request." }, 400);
+  }
+
+  if (body.website) return json({ ok: true }); // honeypot
+
+  const email = String(body.email || "").trim().toLowerCase();
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email) || email.length > 254) {
+    return json({ error: "That email address doesn't look right." }, 400);
+  }
+
+  const total = Math.min(Math.max(parseInt(body.total, 10) || 8, 1), 20);
+  const score = Math.min(Math.max(parseInt(body.score, 10) || 0, 0), total);
+  const missing = (Array.isArray(body.missing) ? body.missing : [])
+    .map((m) => String(m).slice(0, 160))
+    .filter(Boolean)
+    .slice(0, total);
+
+  let already = false;
+  const created = await resend(env, "/contacts", {
+    method: "POST",
+    body: JSON.stringify({ email, unsubscribed: false }),
+  });
+  if (!created.ok) {
+    if (/already|exists|duplicate/i.test(created.text || "")) {
+      already = true;
+    } else {
+      return json({ error: "Something went wrong on our side — please try again." }, 502);
+    }
+  }
+
+  const verdict =
+    score >= 7
+      ? "Strong foundations. The wins now are in optimisation and scale."
+      : score >= 4
+        ? "A solid start — but money is leaking in the gaps. Each item below is a fixable growth blocker."
+        : "Your website is working far below its potential. The good news: these are the fastest fixes with the biggest payoff.";
+
+  const missingHtml = missing.length
+    ? `<p style="margin:18px 0 8px;color:#ECECE6;"><strong>Where you're leaking:</strong></p>` +
+      missing.map((m) => `<p style="margin:0 0 6px;">— ${escHtml(m)}</p>`).join("")
+    : `<p style="margin:18px 0 0;">You ticked everything — your foundations are genuinely in place. The checklist below shows the order to optimise what already works.</p>`;
+
+  const token = await makeToken(email, env.NEWSLETTER_SECRET);
+  const sent = await resend(env, "/emails", {
+    method: "POST",
+    body: JSON.stringify({
+      from: FROM,
+      to: [email],
+      reply_to: REPLY_TO,
+      subject: `Your website audit — you scored ${score} of ${total}`,
+      html: emailShell({
+        label: "YOUR WEBSITE AUDIT",
+        title: `You scored ${score} of ${total}.`,
+        bodyHtml:
+          `<p style="margin:0;">${escHtml(verdict)}</p>` +
+          missingHtml +
+          `<p style="margin:18px 0 0;">The full 5 Leaks Checklist walks through each one — what it costs you and the order to fix them. You're also on the newsletter now: one email whenever a new post goes live, unsubscribe anytime.</p>`,
+        buttonLabel: "GET THE 5 LEAKS CHECKLIST →",
+        buttonHref: `${SITE}/checklist`,
+        unsubscribeHref: `${SITE}/api/unsubscribe?t=${token}`,
+      }),
+    }),
+  });
+  if (!sent.ok) {
+    return json({ error: "The report couldn't be sent — please try again." }, 502);
+  }
+
+  return json({ ok: true, already });
 }
 
 // ---------- unsubscribe ----------
