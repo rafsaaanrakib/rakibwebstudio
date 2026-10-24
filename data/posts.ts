@@ -11,6 +11,27 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "website-traffic-no-sales-7-leaks",
+    title: "Your website gets traffic but no sales? 7 leaks to check first",
+    date: "2026-10-24",
+    excerpt: "Traffic is not the problem. If people visit your website and leave without enquiring or buying, something on the page is leaking them. Here are the seven leaks I check first \u2014 and the order to fix them.",
+    body: [
+      "Traffic is not the same thing as customers. I have seen websites with thousands of monthly visitors and almost no enquiries, and websites with a few hundred visitors that keep their owners busy. The difference is rarely the amount of traffic. It is what happens after someone arrives.",
+      "Think of your website as a bucket. Advertising and SEO pour water in. But if the bucket has holes, it does not matter how fast you pour \u2014 it never fills. Most websites I audit do not have a traffic problem. They have a leak problem. And the good news is that leaks are fixable, usually in days, not months.",
+      "Here are the seven leaks I check first, in the order I check them.",
+      "1. It loads too slowly on a phone. Most of your visitors are on a phone, on a connection nowhere near as fast as your office wifi. If your homepage takes more than a few seconds to become usable, a large share of visitors leave before they ever see what you sell. Check it honestly: open your own site on mobile data, not wifi, and count the seconds until you can read the headline and tap something. Compress images, remove plugins and animations you don't need, and test again. Speed isn't a technical nicety \u2014 it's the front door.",
+      "2. A stranger can't tell what you do in five seconds. The most common leak, and the most expensive. A visitor lands, sees a clever headline and eight menu options, and five seconds later still can't answer: what do you sell, who is it for, what should I do next? Fix it with one plain sentence at the top of the page. If a twelve-year-old can't explain your homepage back to you, rewrite it. Clarity is the whole system, and this is where it starts \u2014 I wrote about it in more detail in [Why your website isn't turning visitors into customers](/blog/why-website-not-turning-visitors-into-customers).",
+      "3. There is no single obvious next step. Many sites offer five actions at once: call, email, form, follow, read the blog. A confused visitor does none of them. Every page needs one primary action \u2014 one button, one form, one tap-to-call number. Cut the form to what you actually need to start a conversation: name, contact, what they need.",
+      "4. There is nothing that makes you believable. A stranger has no reason to trust you yet, and most sites give them no proof: no reviews, no real work, no prices, no answers to common questions. You don't need a hundred testimonials \u2014 a few honest ones, real work with real outcomes, FAQs, and a starting figure, like websites from $800, do the job. Trust is built from specifics, not adjectives.",
+      "5. You are flying blind \u2014 nothing is measured. Without analytics you can't tell which pages lose people or whether your last change helped. Setting it up takes under an hour and changes every decision after it.",
+      "6. There is no system that brings people back. Most visitors won't buy on the first visit \u2014 that's normal. The leak is having no way to stay in touch: no email capture, no useful content. Offer something genuinely useful, like my [5 Leaks checklist](/checklist), and then actually send useful things, not just promotions.",
+      "7. The finish line has friction. The visitor is convinced \u2014 then checkout demands an account first, the form errors, or the phone number is an image instead of a tap-to-call link. Test your own finish line on your phone once a month. Every point of friction there costs you the customers who were already convinced \u2014 the most expensive ones to lose.",
+      "The order to fix them: message clarity and the obvious next step first (free, one afternoon) \u2192 speed and trust signals \u2192 remove finish-line friction \u2192 measurement \u2192 the follow-up system. Each fix makes the next one more valuable.",
+      "Where to start today: run the free [instant website audit](/tools) \u2014 it checks the big ones in two minutes and emails you exactly what you missed. Fix the first two leaks, and watch what changes before you spend another dollar on traffic.",
+      "Traffic fills the bucket. Fixing leaks keeps it full.",
+    ],
+  },
+  {
     slug: "why-i-rebuilt-my-website",
     title: "I rebuilt my website from zero \u2014 and moved to rakibwebstudio.com",
     date: "2026-10-23",
