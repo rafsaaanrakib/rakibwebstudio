@@ -371,8 +371,30 @@ async function handleSendLatest(request, env) {
     /* no body → latest post */
   }
 
-  const feedRes = await fetch(`${SITE}/rss.xml`);
-  if (!feedRes.ok) return json({ error: "Could not read the site RSS feed." }, 502);
+  // Read the feed from the Worker's own static assets first. Fetching the
+  // public URL from inside the Worker failed at deploy time (HTTP 502
+  // "Could not read the site RSS feed." in the post-2 build log, even
+  // though /rss.xml served fine from outside) — a self-fetch race, not a
+  // broken feed. Fall back to the public fetch only if ASSETS misses.
+  let feedRes = null;
+  try {
+    feedRes = await env.ASSETS.fetch(new Request(`${SITE}/rss.xml`));
+  } catch {
+    feedRes = null;
+  }
+  if (!feedRes || !feedRes.ok) {
+    try {
+      feedRes = await fetch(`${SITE}/rss.xml`);
+    } catch {
+      feedRes = null;
+    }
+  }
+  if (!feedRes || !feedRes.ok) {
+    return json(
+      { error: "Could not read the site RSS feed.", status: feedRes?.status || null },
+      502
+    );
+  }
   const feed = await feedRes.text();
   const items = [...feed.matchAll(/<item>([\s\S]*?)<\/item>/g)].map((m) => m[1]);
   if (!items.length) return json({ error: "No posts in the feed." }, 404);
