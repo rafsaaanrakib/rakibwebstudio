@@ -156,6 +156,48 @@ function configured(env) {
   return Boolean(env.RESEND_API_KEY && env.NEWSLETTER_SECRET);
 }
 
+// The dashboard segment Rakib created for the newsletter (2026-10-24).
+// Site signups create Resend global contacts with zero segment membership,
+// so broadcasts to an auto-discovered empty segment fail with 422
+// "audience has no contacts". These helpers find that segment by name and
+// make sure contacts are actually in it before a broadcast is created.
+const NEWSLETTER_SEGMENT_NAME = "Newsletter subscribers";
+
+async function listSegments(env) {
+  const r = await resend(env, "/segments");
+  if (Array.isArray(r.data?.data)) return r.data.data;
+  if (Array.isArray(r.data)) return r.data;
+  return [];
+}
+
+async function findNewsletterSegmentId(env) {
+  const segs = await listSegments(env);
+  const named = segs.find((s) => s.name === NEWSLETTER_SEGMENT_NAME);
+  return named?.id || segs[0]?.id || null;
+}
+
+async function addContactToSegment(env, email, segmentId) {
+  if (!segmentId || !email) return false;
+  const r = await resend(env, `/contacts/${encodeURIComponent(email)}/segments/${segmentId}`, {
+    method: "POST",
+  });
+  return r.ok;
+}
+
+async function ensureContactsInSegment(env, segmentId) {
+  if (!segmentId) return;
+  const list = await resend(env, "/contacts?limit=100");
+  const contacts = Array.isArray(list.data?.data) ? list.data.data : [];
+  for (const c of contacts) {
+    if (c.unsubscribed || !c.email) continue;
+    try {
+      await addContactToSegment(env, c.email, segmentId);
+    } catch {
+      /* best effort — a failed add must not block the broadcast */
+    }
+  }
+}
+
 // ---------- subscribe ----------
 
 async function handleSubscribe(request, env) {
@@ -185,10 +227,21 @@ async function handleSubscribe(request, env) {
 
   if (!created.ok) {
     if (/already|exists|duplicate/i.test(created.text || "")) {
+      try {
+        const segId = await findNewsletterSegmentId(env);
+        if (segId) await addContactToSegment(env, email, segId);
+      } catch {}
       return json({ ok: true, already: true });
     }
     return json({ error: "Something went wrong on our side — please try again." }, 502);
   }
+
+  // New signups must land in the newsletter segment, or future broadcasts
+  // will see an empty group again. Best effort — never fail the signup.
+  try {
+    const segId = await findNewsletterSegmentId(env);
+    if (segId) await addContactToSegment(env, email, segId);
+  } catch {}
 
   const token = await makeToken(email, env.NEWSLETTER_SECRET);
   await resend(env, "/emails", {
@@ -254,6 +307,12 @@ async function handleAuditReport(request, env) {
       return json({ error: "Something went wrong on our side — please try again." }, 502);
     }
   }
+
+  // Audit-report signups join the newsletter too, so put them in the segment.
+  try {
+    const segId = await findNewsletterSegmentId(env);
+    if (segId) await addContactToSegment(env, email, segId);
+  } catch {}
 
   const verdict =
     score >= 7
@@ -420,14 +479,13 @@ async function handleSendLatest(request, env) {
 
   // Resolve the target: broadcasts need a segment_id in Resend's current
   // API (audience_id is the deprecated alias). Prefer the env override,
-  // then auto-discover the account's first segment, then the legacy
-  // audience as a last resort.
+  // then the "Newsletter subscribers" segment by name, then the account's
+  // first segment, then the legacy audience as a last resort.
   let target = {};
   if (env.RESEND_SEGMENT_ID) {
     target = { segment_id: env.RESEND_SEGMENT_ID };
   } else {
-    const segments = await resend(env, "/segments");
-    const segId = segments.data?.data?.[0]?.id;
+    const segId = await findNewsletterSegmentId(env);
     if (segId) {
       target = { segment_id: segId };
     } else {
@@ -438,6 +496,13 @@ async function handleSendLatest(request, env) {
   }
   if (!target.segment_id && !target.audience_id) {
     return json({ error: "No Resend segment or audience found to send to." }, 502);
+  }
+  // A segment with no members makes Resend refuse the broadcast (422).
+  // Make sure every subscribed contact is in the target segment first —
+  // this also covers the existing contact, even if it was never added
+  // to the segment by hand.
+  if (target.segment_id) {
+    await ensureContactsInSegment(env, target.segment_id);
   }
 
   const created = await resend(env, "/broadcasts", {
@@ -453,7 +518,7 @@ async function handleSendLatest(request, env) {
     }),
   });
   if (!created.ok || !created.data?.id) {
-    return json({ error: "Broadcast creation failed.", detail: created.text?.slice(0, 200) }, 502);
+    return json({ error: "Broadcast creation failed.", detail: created.text?.slice(0, 500) }, 502);
   }
 
   return json({ ok: true, broadcast_id: created.data.id, post: slug });
