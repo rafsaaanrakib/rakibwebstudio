@@ -25,7 +25,7 @@ export const posts: Post[] = [
       "One last thing about order, because it matters more than the total: spend on clarity and conversion before you spend on traffic. A clear page with one next step and proof near the decision makes every dollar after it work harder — the same order I set out in [SEO vs Facebook ads: where should a small business spend first?](/blog/seo-vs-facebook-ads-where-to-spend-first). A beautiful site that nobody can find is a brochure. A found site that nobody trusts is a leak. A clear, fast, converting site, then traffic aimed at it, is a system. That is what you are really buying, whatever the invoice calls it.",
       "If you are staring at quotes right now and cannot tell which one is fair, start with the free [website audit](/tools). It checks your current site against the leaks above and tells you what actually needs fixing, before you spend anything. And if you want the full system — clarity, converting pages, traffic, then follow-up, in that order — it is the one in my book, [Website to Customers](/ebook). Do not buy the cheapest website. Buy the one whose scope you understand, from someone who will still be there after launch.",
     ],
-  },,
+  },
   {
     slug: "free-website-tools-launch",
     title: "3 free tools I use in client work — now in one place",
