@@ -11,6 +11,22 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "free-website-tools-launch",
+    title: "3 free tools I use in client work — now in one place",
+    date: "2026-10-25",
+    excerpt: "An instant website audit, a project price estimator, and a Reel hook generator. Free to use, no email wall for the first result — the same tools I start real client projects with.",
+    body: [
+      "Today I am putting the tools I actually use in client work in one place, free for anyone to use: [the free tools page](/tools).",
+      "Tool one is the instant website audit. Eight questions, the same first-pass checklist I run on real projects: speed on a phone, SEO titles, your Google profile, one-tap contact, analytics, five-second clarity, content rhythm, and reviews and pricing signals. You get a score out of eight, and if you want it, an emailed report of exactly what you missed.",
+      "Tool two is the project price estimator. Answer a few questions about what you need, and it gives you a USD estimate in the same ranges the studio quotes from — websites from $800. No sales call required to get a number.",
+      "Tool three is the Reel hook generator. Short-form video lives or dies on the first line, so this one gives you hooks you can actually use, instead of staring at a blank caption box.",
+      "Why free? Two reasons. First, useful tools are the fairest way to prove a studio knows its work — you can test the thinking before you ever talk to me. Second, most small businesses do not need a sales pitch. They need to know, in ten minutes, what is wrong with their website and what it would cost to fix it. These tools answer that.",
+      "No email wall for the first result. The audit report by email is optional — it is there if you want the fix list in your inbox, and it joins you to the newsletter, where the next blog post lands whenever it publishes.",
+      "Try the audit first, and tell me your score. If it is lower than you expected, that is normal — most sites I check land in the middle, and the fixes are usually smaller than people fear. Start with [the free tools](/tools), then run [the 5 Leaks checklist](/checklist) if you want the deeper version.",
+      "And if you build something with these tools, or one of them saves you a bad decision, I would genuinely like to hear about it — [leave a review](/reviews) or just reply to the newsletter. That is how the next tool gets built: from what people actually use.",
+    ],
+  },
+  {
     slug: "seo-vs-facebook-ads-where-to-spend-first",
     title: "SEO vs Facebook ads: where should a small business spend first?",
     date: "2026-10-25",
