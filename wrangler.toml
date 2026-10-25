@@ -12,3 +12,8 @@ directory = "./out"
 binding = "ASSETS"
 not_found_handling = "404-page"
 html_handling = "auto-trailing-slash"
+# Without this, Cloudflare serves static assets directly WITHOUT running
+# worker.js, so the HSTS header set in the Worker never reaches pages.
+# run_worker_first makes every request pass through the Worker (which
+# falls through to ASSETS), so security headers apply to all responses.
+run_worker_first = true
