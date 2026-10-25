@@ -73,6 +73,7 @@ export default function SiteFooter() {
             <Link href="/blog" className="hover:text-porcelain">Blog</Link>
             <Link href="/ebook" className="hover:text-porcelain">The Book — $11.99</Link>
             <Link href="/newsletter" className="hover:text-porcelain">Newsletter</Link>
+            <Link href="/reviews" className="hover:text-porcelain">Reviews</Link>
             <Link href="/privacy" className="hover:text-porcelain">Privacy</Link>
           </div>
         </div>

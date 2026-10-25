@@ -265,6 +265,12 @@ export default function Home() {
             >
               Read the case studies
             </Link>
+            <Link
+              href="/reviews"
+              className="font-display text-sm font-bold uppercase tracking-wide text-porcelain underline decoration-line underline-offset-8 hover:decoration-porcelain"
+            >
+              Leave a review
+            </Link>
           </div>
         </Reveal>
       </section>
