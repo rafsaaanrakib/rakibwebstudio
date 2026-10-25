@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/about" },
   title: "About — Rakib Ahmed",
   description:
-    "Rakib Ahmed, founder of Rakib Web Studio: websites, SEO, ads, content, social and video run as one growth system for brands and online stores.",
+    "Rakib Ahmed, founder of Rakib Web Studio: websites, SEO, ads, content, social and video as one growth system.",
 };
 
 const experience = [

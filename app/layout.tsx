@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     template: "%s | Rakib Web Studio",
   },
   description:
-    "Rakib Web Studio is a business growth partner: websites, SEO, ads, content, social and video as one growth system for brands and online stores worldwide.",
+    "Everything your business needs to grow: websites, SEO, ads, content, social and video as one system, worldwide.",
   keywords: [
     "business growth partner",
     "web development",

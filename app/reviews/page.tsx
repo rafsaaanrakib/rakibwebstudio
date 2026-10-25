@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/reviews" },
   title: "Reviews — Leave a review for Rakib Web Studio",
   description:
-    "Worked with Rakib Web Studio? Leave a Google review, or write a short testimonial here. Nothing is published without your approval of the exact words.",
+    "Worked with Rakib Web Studio? Leave a Google review, or write a short testimonial here. Nothing publishes without your approval.",
 };
 
 const GOOGLE_REVIEW_URL = `${site.googleProfile}/review`;

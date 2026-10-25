@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/checklist" },
   title: "The 5 Leaks Checklist — check your website in 10 minutes",
   description:
-    "Your website probably doesn't have a traffic problem — it has a bucket problem. The five leaks draining customers from most business websites, as a ten-minute self-audit.",
+    "Your website probably doesn't have a traffic problem — it has a bucket problem. The five leaks, as a ten-minute self-audit.",
 };
 
 const leaks = [

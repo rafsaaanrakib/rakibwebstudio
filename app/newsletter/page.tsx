@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/newsletter" },
   title: "Newsletter — Growth, in your inbox",
   description:
-    "One email whenever a new Rakib Web Studio post goes live: the systems that turn website visitors into customers. Free forever, unsubscribe in one click.",
+    "One email whenever a new Rakib Web Studio post goes live: the systems that turn visitors into customers. Free forever.",
 };
 
 const rows = [

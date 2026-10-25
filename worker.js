@@ -75,7 +75,18 @@ export default {
       return json({ error: "Not found" }, 404);
     }
 
-    return env.ASSETS.fetch(request);
+    // HSTS (SEOquake audit 2026-10-25 flagged it missing). The site is
+    // HTTPS-only — Always Use HTTPS plus the www→apex redirect are both
+    // verified — so telling browsers to never attempt HTTP is safe. Set
+    // here in code, not in the dashboard, so it survives every deploy.
+    const res = await env.ASSETS.fetch(request);
+    const headers = new Headers(res.headers);
+    headers.set("Strict-Transport-Security", "max-age=31536000; includeSubDomains");
+    return new Response(res.body, {
+      status: res.status,
+      statusText: res.statusText,
+      headers,
+    });
   },
 };
 
