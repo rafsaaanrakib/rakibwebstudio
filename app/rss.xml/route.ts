@@ -16,7 +16,10 @@ function escapeXml(s: string) {
 // newsletter Worker (/api/send-latest), which emails the newest item to
 // subscribers whenever a post goes live.
 export function GET() {
-  const sorted = [...posts].sort((a, b) => (a.date < b.date ? 1 : -1));
+  // Date descending; equal dates keep the posts-array order (newest first).
+  // Returning -1 for equal dates used to scramble same-day posts, so the
+  // newsletter's "newest item" pick kept landing on an already-sent post.
+  const sorted = [...posts].sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0));
   const items = sorted
     .map((p) => {
       const link = `${site.url}/blog/${p.slug}`;
