@@ -31,6 +31,12 @@ const LEGACY_REDIRECTS = {
   "/blog/seo-checklist-local-business": "/blog/seo-checklist-growing-business",
 };
 
+// Short vanity path that used to 404 in Search Console (guessed LinkedIn URL
+// on this domain) — send it to the real LinkedIn profile instead.
+const EXTERNAL_REDIRECTS = {
+  "/in/rafsaanrakib": "https://www.linkedin.com/in/rafsaanrakib",
+};
+
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
@@ -38,6 +44,10 @@ export default {
 
     if (LEGACY_REDIRECTS[path]) {
       return Response.redirect(`${SITE}${LEGACY_REDIRECTS[path]}`, 301);
+    }
+
+    if (EXTERNAL_REDIRECTS[path]) {
+      return Response.redirect(EXTERNAL_REDIRECTS[path], 301);
     }
 
     if (path === "/api/subscribe" && request.method === "POST") {
