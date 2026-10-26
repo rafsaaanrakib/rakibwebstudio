@@ -11,6 +11,22 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "shopify-woocommerce-store-no-sales",
+    title: "Your Shopify or WooCommerce store gets visitors but no sales? Fix it in this order",
+    date: "2026-10-26",
+    excerpt: "A store that gets visitors but no orders is usually leaking in the same order every time: offer, checkout, trust, follow-up. Fix those four, in that order, before you buy more traffic.",
+    body: [
+      "A store that gets visitors but no orders is not failing at one thing. It is usually leaking in the same order every time: the visitor does not understand the offer fast enough, does not trust it enough, cannot buy easily enough, or is never followed up with. Adding more traffic before fixing those leaks just buys more people to lose.",
+      "Start with the product page, because that is where the sale actually happens. A visitor who lands there should be able to answer four questions in seconds: what is this, who is it for, what does it cost in total, and what happens if it is not right? If the price hides shipping, if delivery time is vague, if returns are unstated, or if the photos do not show the product properly, most people will not ask — they will leave. That is not a traffic problem. That is a page problem.",
+      "Next, walk the checkout yourself, on a phone, as a stranger. Count the steps, the fields, and the surprises. Every extra step, every forced account, every payment option that does not work for your buyers, and every shipping charge that appears only at the end is a reason to abandon a cart that was already decided. A store does not need more payment methods. It needs the right ones, working, with the total cost visible before the final click.",
+      "Then check trust where the decision is made, not on an about page nobody visits. Reviews, real photos, clear contact details, delivery and return information, and a way to ask a question quickly all belong near the buy button. A beautiful store with no proof near the decision reads as risky, however good the product is. And if your traffic lands on the homepage instead of the product it clicked for, fix that first — a homepage is a tour, a product page is a sale.",
+      "Only after the page, the checkout and the trust layer are in place does more traffic make sense. The same order runs through the whole system here: clarity first, then a page that converts, then traffic that fits, then capture and follow-up for the people who do not buy today. Most stores do it backwards — they buy ads for a store that leaks, then conclude ads do not work. The ads worked. The store did not close.",
+      "That follow-up step is where most store owners leave the most money. Almost nobody buys on the first visit. If there is no way to capture the visitor — an offer, a WhatsApp enquiry, an email capture tied to something useful — that visit is gone for good, and you will pay to win the same person again. A store without capture is renting its audience, visit by visit.",
+      "So do not start by asking which platform is better, Shopify or WooCommerce. Both can sell, and both can leak. Start by asking, in order: is the offer clear on the product page, is checkout short and honest about cost, is there proof near the buy button, and is there a way to follow up with everyone who leaves? Fix those four, in that order, and then traffic — SEO or ads, whichever fits first — has something to convert.",
+      "If you want to check your own store against this list before spending anything, run the free [website audit](/tools). It checks the same leaks, with no email wall for the first result. And the full system behind it — clarity, converting pages, traffic, then follow-up, in that order — is the one in [Website to Customers](/ebook).",
+    ],
+  },
+  {
     slug: "how-much-should-business-website-cost-2026",
     title: "How much should a business website actually cost in 2026?",
     date: "2026-10-25",
