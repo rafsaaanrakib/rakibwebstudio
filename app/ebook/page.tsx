@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Reveal from "@/components/Reveal";
-import { site, whatsappLink } from "@/data/site";
+import { site } from "@/data/site";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/ebook" },
@@ -10,9 +10,10 @@ export const metadata: Metadata = {
     "Website to Customers: a simple system for turning visitors into paying clients. 14 chapters, 30-day plan, worksheets. $11.99.",
 };
 
-const buyHref = whatsappLink(
-  "Hi Rakib, I want to buy your ebook 'Website to Customers' ($11.99). How do I pay?"
-);
+// Card checkout via Creem (approved 2026-10-27). WhatsApp ordering was the
+// interim flow until approval; the buy buttons now go straight to checkout.
+const buyHref =
+  "https://www.creem.io/payment/prod_4zv1ncClAVWVgRuC8aEnWq";
 
 const chapters = [
   { n: "01", title: "Why Most Websites Don't Sell", note: "The five problems behind almost every underperforming site" },
@@ -49,7 +50,7 @@ const audience = [
 const faqs = [
   {
     q: "How do I receive the book?",
-    a: "It's a PDF (35 pages) that reads well on phone, tablet and desktop. Order on WhatsApp today and it's emailed to you personally — usually within a few hours. A one-click card checkout is opening on this page very shortly.",
+    a: "It's a PDF (35 pages) that reads well on phone, tablet and desktop. Pay by card at checkout and it's emailed to you personally — usually within a few hours.",
   },
   {
     q: "I'm not technical. Is this book for me?",
@@ -103,9 +104,8 @@ export default function EbookPage() {
               </p>
             </div>
             <p className="mt-4 max-w-prose text-sm leading-relaxed text-mist/80">
-              Ordering opens on WhatsApp today while the card checkout is
-              being switched on — order now and the PDF lands in your inbox
-              within a few hours.
+              Pay by card at checkout — order now and the PDF lands in your
+              inbox within a few hours.
             </p>
           </Reveal>
 
