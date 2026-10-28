@@ -29,6 +29,7 @@ const REPLY_TO = "rakib.official13155@gmail.com";
 
 const LEGACY_REDIRECTS = {
   "/blog/seo-checklist-local-business": "/blog/seo-checklist-growing-business",
+  "/studio": "/",
 };
 
 // Short vanity path that used to 404 in Search Console (guessed LinkedIn URL
