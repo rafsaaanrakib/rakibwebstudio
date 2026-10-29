@@ -72,6 +72,18 @@ export const projects: Project[] = [
     deliverables: ["Custom WordPress design", "Affiliate link management", "SEO and analytics setup"],
     video: "/videos/peerlesshouse.mp4",
   },
+  {
+    slug: "faisal-iqbal",
+    name: "Faisal Iqbal – Income Tax Lawyer",
+    tag: "Professional Services · Google Profile Setup, SEO",
+    copy: "Created the Google Business Profile from scratch, set it up completely, and got it verified — then SEO guidance that keeps it ranking and bringing enquiries.",
+    result: "Google Business Profile created from zero and verified via video verification; profile shows 5.0 from 9 reviews.",
+    outcome: "A lawyer with no Google presence — now verified, visible, and reviewed.",
+    outcomePoints: ["Google profile created from zero", "Verified via video verification", "Profile live and reviewed"],
+    detail:
+      "Faisal Iqbal is an income tax lawyer offering tax, VAT, company law, and business compliance services. I created his Google Business Profile from scratch, set the whole thing up, and completed verification by video. Then SEO guidance — practical strategies to improve Google rankings, in his words: \"Great SEO service with professional guidance and practical strategies to improve Google rankings. Highly recommended!\"",
+    deliverables: ["Google Business Profile creation and setup", "Video verification", "SEO guidance for rankings"],
+  },
 ];
 
 export function getProject(slug: string) {
