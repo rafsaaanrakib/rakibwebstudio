@@ -44,10 +44,11 @@ export default function ReviewsPage() {
           Say it in your words<span className="text-signal">.</span>
         </h1>
         <p className="mt-6 max-w-2xl text-base leading-relaxed text-mist">
-          The studio&apos;s Google profile is new, and client reviews are being
-          collected here now. If Rakib built your website, ran your SEO or ads,
-          or set up your online presence, a short honest review helps the next
-          business decide — more than any claim on this site ever could.
+          The studio&apos;s Google profile now holds its first review — 5 stars
+          — and more are being collected here. If Rakib built your website, ran
+          your SEO or ads, or set up your online presence, a short honest
+          review helps the next business decide — more than any claim on this
+          site ever could.
         </p>
         <div className="mt-10 flex flex-wrap gap-3">
           <a
@@ -87,12 +88,31 @@ export default function ReviewsPage() {
         <div className="mt-20 grid gap-12 lg:grid-cols-[1fr_1.1fr] lg:gap-16">
           <div>
             <p className="font-mono text-[11px] uppercase tracking-[0.24em] text-mist">
-              Client words, when they arrive
+              Client words
             </p>
-            <p className="mt-4 max-w-prose text-base leading-relaxed text-mist">
-              No client quotes are published here yet — and none will be invented
-              to fill the space. When real, approved words arrive, they go here,
-              and beside the service route they describe, exactly as written.
+            <p className="mt-4 font-mono text-sm text-signal">★ ★ ★ ★ ★ — 5.0 on Google</p>
+            <blockquote className="mt-4 max-w-prose border-l-2 border-signal pl-5 font-serif text-xl leading-relaxed text-porcelain">
+              “Great SEO service with professional guidance and practical
+              strategies to improve Google rankings. Highly recommended!”
+            </blockquote>
+            <p className="mt-4 text-sm text-mist">
+              — Faisal Iqbal, Google review, October 2026. Quoted exactly as
+              written.{" "}
+              <a
+                href={site.googleProfile}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-medium text-porcelain underline decoration-porcelain/40 underline-offset-4 hover:decoration-signal"
+              >
+                See it on Google
+              </a>
+              .
+            </p>
+            <p className="mt-6 max-w-prose text-sm leading-relaxed text-mist">
+              More reviews, when approved, will join it here — only exact words,
+              with name and business, after their author says yes. Nothing is
+              invented, edited into something you didn&apos;t say, or published
+              from a private message.
             </p>
             <p className="mt-6 max-w-prose text-sm leading-relaxed text-mist">
               Until then, the work itself is the proof: read the{" "}
