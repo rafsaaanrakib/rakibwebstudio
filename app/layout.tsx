@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Script from "next/script";
-import { Archivo, Piazzolla, IBM_Plex_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
@@ -9,23 +9,52 @@ import { site } from "@/data/site";
 
 // Type system v3: Archivo grotesque for display + body, IBM Plex Mono for
 // labels/meta, Piazzolla serif reserved for pull-quotes only.
-const archivo = Archivo({
-  subsets: ["latin"],
+// Fonts are SELF-HOSTED (app/fonts/*.woff2, downloaded from Google Fonts)
+// instead of next/font/google: the Google loader fetches font CSS at build
+// time and fails the whole build when that fetch returns nothing — which is
+// exactly what broke the Vercel preview build on 2026-11-14
+// ("Cannot read properties of null (reading '1')" in next/font). Local
+// files make the build deterministic on every host. Same fonts, same
+// weights, same CSS variables — no visual change.
+const archivo = localFont({
+  src: "./fonts/archivo-latin.woff2",
   variable: "--font-archivo",
-  weight: ["400", "500", "600", "700", "800", "900"],
+  weight: "100 900",
+  display: "swap",
 });
 
-const piazzolla = Piazzolla({
-  subsets: ["latin"],
+const piazzolla = localFont({
+  src: [
+    {
+      path: "./fonts/piazzolla-latin-normal.woff2",
+      weight: "100 900",
+      style: "normal",
+    },
+    {
+      path: "./fonts/piazzolla-latin-italic.woff2",
+      weight: "100 900",
+      style: "italic",
+    },
+  ],
   variable: "--font-piazzolla",
-  weight: ["500", "600"],
-  style: ["normal", "italic"],
+  display: "swap",
 });
 
-const plexMono = IBM_Plex_Mono({
-  subsets: ["latin"],
+const plexMono = localFont({
+  src: [
+    {
+      path: "./fonts/ibm-plex-mono-latin-400.woff2",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "./fonts/ibm-plex-mono-latin-500.woff2",
+      weight: "500",
+      style: "normal",
+    },
+  ],
   variable: "--font-plex-mono",
-  weight: ["400", "500"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
