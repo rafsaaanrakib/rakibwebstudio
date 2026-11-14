@@ -5,6 +5,8 @@ import { site, whatsappLink } from "@/data/site";
 
 // No backend on a static site: the form sends straight to Rakib's inbox via a
 // free form relay (no signup needed), or the visitor can use WhatsApp instead.
+// Delivery stays on the Gmail inbox until the hello@ forwarding is confirmed
+// working — only then switch this endpoint to site.contactEmail.
 const FORM_ENDPOINT = `https://formsubmit.co/ajax/${site.email}`;
 
 type Status = "idle" | "sending" | "sent" | "error";

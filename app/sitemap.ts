@@ -22,6 +22,7 @@ const LAST_CHANGE: Record<string, string> = {
   "/reviews": "2026-10-29",
   "/about": "2026-10-25",
   "/contact": CHANGED,
+  "/platform": CHANGED,
   "/privacy": "2026-10-24",
   "/terms": "2026-10-28",
 };

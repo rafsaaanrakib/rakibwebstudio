@@ -44,8 +44,8 @@ export default function PrivacyPage() {
           </p>
           <p>
             Questions about privacy: email{" "}
-            <a href={`mailto:${site.email}`} className="text-mint underline decoration-accent decoration-2 underline-offset-4">
-              {site.email}
+            <a href={`mailto:${site.contactEmail}`} className="text-mint underline decoration-accent decoration-2 underline-offset-4">
+              {site.contactEmail}
             </a>
             .
           </p>

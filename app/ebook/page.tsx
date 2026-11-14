@@ -62,7 +62,7 @@ const faqs = [
   },
   {
     q: "What if it's not right for me?",
-    a: "Email me at " + site.email + " — I read every message personally, and I'll make it right.",
+    a: "Email me at " + site.contactEmail + " — I read every message personally, and I'll make it right.",
   },
 ];
 

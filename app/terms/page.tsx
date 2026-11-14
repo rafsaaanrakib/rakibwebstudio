@@ -23,8 +23,8 @@ export default function TermsPage() {
             do with Rakib Web Studio. By using this website, buying the book,
             or starting a project, you agree to them. If anything here is
             unclear, ask before you buy or book — email{" "}
-            <a href={`mailto:${site.email}`} className="text-mint underline decoration-accent decoration-2 underline-offset-4">
-              {site.email}
+            <a href={`mailto:${site.contactEmail}`} className="text-mint underline decoration-accent decoration-2 underline-offset-4">
+              {site.contactEmail}
             </a>
             .
           </p>
@@ -83,8 +83,8 @@ export default function TermsPage() {
             <strong className="text-porcelain">Changes.</strong> These terms
             may be updated from time to time; the version on this page is the
             current one. Questions about these terms: email{" "}
-            <a href={`mailto:${site.email}`} className="text-mint underline decoration-accent decoration-2 underline-offset-4">
-              {site.email}
+            <a href={`mailto:${site.contactEmail}`} className="text-mint underline decoration-accent decoration-2 underline-offset-4">
+              {site.contactEmail}
             </a>
             .
           </p>

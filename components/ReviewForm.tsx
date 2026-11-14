@@ -5,6 +5,8 @@ import { site } from "@/data/site";
 
 // Same form relay as the contact form (already activated for rakibwebstudio.com).
 // Submissions go straight to Rakib's inbox — nothing is published automatically.
+// Delivery stays on the Gmail inbox until the hello@ forwarding is confirmed
+// working — only then switch this endpoint to site.contactEmail.
 const FORM_ENDPOINT = `https://formsubmit.co/ajax/${site.email}`;
 
 type Status = "idle" | "sending" | "sent" | "error";

@@ -49,7 +49,7 @@ export default function SiteFooter() {
         <div className="mt-14 grid gap-10 border-t border-line pt-10 sm:grid-cols-3">
           <div className="flex flex-col gap-2.5 text-sm text-mist">
             <p className="mb-1 font-mono text-[11px] uppercase tracking-[0.22em] text-porcelain">Contact</p>
-            <a href={`mailto:${site.email}`} className="break-words hover:text-porcelain">{site.email}</a>
+            <a href={`mailto:${site.contactEmail}`} className="break-words hover:text-porcelain">{site.contactEmail}</a>
             <a href={whatsappLink()} target="_blank" rel="noopener noreferrer" className="hover:text-porcelain">
               WhatsApp {site.whatsappDisplay}
             </a>
@@ -68,6 +68,7 @@ export default function SiteFooter() {
           <div className="flex flex-col gap-2.5 text-sm text-mist">
             <p className="mb-1 font-mono text-[11px] uppercase tracking-[0.22em] text-porcelain">Explore</p>
             <Link href="/services" className="hover:text-porcelain">Services</Link>
+            <Link href="/platform" className="hover:text-porcelain">Platform</Link>
             <Link href="/work" className="hover:text-porcelain">Work</Link>
             <Link href="/tools" className="hover:text-porcelain">Free Tools</Link>
             <Link href="/blog" className="hover:text-porcelain">Blog</Link>

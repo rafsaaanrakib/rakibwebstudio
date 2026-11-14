@@ -84,7 +84,10 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
           <p className="mt-6 border border-line bg-panel p-5 text-sm leading-relaxed text-mist">
             <span className="font-semibold text-porcelain">Platform: </span>
             WordPress or custom-built — the platform is chosen for your
-            business, and you own the site and all logins.
+            business, and you own the site and all logins.{" "}
+            <Link href="/platform" className="font-semibold text-porcelain underline decoration-line underline-offset-4 hover:decoration-porcelain">
+              How the platform is chosen →
+            </Link>
           </p>
         )}
 

@@ -28,16 +28,19 @@ export default function ContactPage() {
             </p>
 
             <div className="mt-10 space-y-5 text-sm">
-              <a href={`mailto:${site.email}`} className="group block border-t border-line pt-4">
+              <a href={`mailto:${site.contactEmail}`} className="group block border-t border-line pt-4">
                 <span className="block text-xs uppercase tracking-wide text-mist/70">Email</span>
                 <span className="mt-1 block break-words text-mint underline decoration-accent decoration-2 underline-offset-4 group-hover:text-porcelain">
-                  {site.email}
+                  {site.contactEmail}
                 </span>
               </a>
               <a href={whatsappLink()} target="_blank" rel="noopener noreferrer" className="group block border-t border-line pt-4">
                 <span className="block text-xs uppercase tracking-wide text-mist/70">WhatsApp</span>
                 <span className="mt-1 block text-mint group-hover:text-porcelain">{site.whatsappDisplay}</span>
               </a>
+              <p className="border-t border-line pt-4 text-sm leading-relaxed text-mist">
+                Prefer to talk first? Message on WhatsApp and we&apos;ll pick a time for a free 15-minute call.
+              </p>
               <a href={site.linkedin} target="_blank" rel="noopener noreferrer" className="group block border-t border-line pt-4">
                 <span className="block text-xs uppercase tracking-wide text-mist/70">LinkedIn</span>
                 <span className="mt-1 block text-mint underline decoration-accent decoration-2 underline-offset-4 group-hover:text-porcelain">/in/rafsaanrakib</span>

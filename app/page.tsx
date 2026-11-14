@@ -388,10 +388,10 @@ export default function Home() {
                 WhatsApp me
               </a>
               <a
-                href={`mailto:${site.email}`}
+                href={`mailto:${site.contactEmail}`}
                 className="font-mono text-xs tracking-[0.08em] text-mist hover:text-porcelain"
               >
-                {site.email}
+                {site.contactEmail}
               </a>
             </div>
           </Reveal>

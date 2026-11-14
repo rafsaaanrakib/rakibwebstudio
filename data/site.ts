@@ -2,6 +2,10 @@ export const site = {
   name: "Rakib Web Studio",
   owner: "Rakib Ahmed",
   email: "rakib.official13155@gmail.com",
+  // Public contact email shown on the site. Form delivery (FormSubmit)
+  // stays on `email` until the hello@ forwarding is confirmed working —
+  // only then should the form endpoints switch to `contactEmail`.
+  contactEmail: "hello@rakibwebstudio.com",
   whatsappNumber: "8801577173135",
   whatsappDisplay: "+880 1577-173135",
   googleProfile: "https://g.page/r/Ccg3vtjipm4LEBI",

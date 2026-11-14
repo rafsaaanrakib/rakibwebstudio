@@ -124,7 +124,7 @@ export default function RootLayout({
                   "@type": "ProfessionalService",
                   name: "Rakib Web Studio",
                   url: site.url,
-                  email: site.email,
+                  email: site.contactEmail,
                   description:
                     "Business growth partner: strategy, websites, SEO, advertising, content, social media and video as one growth system.",
                   founder: { "@type": "Person", name: "Rakib Ahmed" },
