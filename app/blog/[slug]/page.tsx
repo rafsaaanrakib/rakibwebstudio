@@ -5,6 +5,7 @@ import Reveal from "@/components/Reveal";
 import ReadingProgress from "@/components/ReadingProgress";
 import SubscribeForm from "@/components/SubscribeForm";
 import { posts, getPost } from "@/data/posts";
+import { site } from "@/data/site";
 
 export function generateStaticParams() {
   return posts.map((p) => ({ slug: p.slug }));
@@ -13,9 +14,14 @@ export function generateStaticParams() {
 export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
   const post = getPost(params.slug);
   if (!post) return {};
+  // Meta descriptions stay under 155 characters; excerpts are longer.
+  const description =
+    post.excerpt.length <= 155
+      ? post.excerpt
+      : post.excerpt.slice(0, 152).trimEnd() + "…";
   return {
     title: post.title,
-    description: post.excerpt,
+    description,
     alternates: { canonical: `/blog/${params.slug}` },
   };
 }
@@ -69,8 +75,26 @@ export default function PostPage({ params }: { params: { slug: string } }) {
   const related = posts.filter((p) => p.slug !== post.slug).slice(0, 3);
   const next = index >= 0 ? posts[index + 1] : undefined;
 
+  const articleJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: post.title,
+    description:
+      post.excerpt.length <= 155
+        ? post.excerpt
+        : post.excerpt.slice(0, 152).trimEnd() + "…",
+    datePublished: post.date,
+    author: { "@type": "Person", name: "Rakib Ahmed", url: `${site.url}/about` },
+    publisher: { "@type": "Organization", name: "Rakib Web Studio", url: site.url },
+    mainEntityOfPage: { "@type": "WebPage", "@id": `${site.url}/blog/${post.slug}` },
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+      />
       <ReadingProgress />
       <div className="mx-auto max-w-3xl px-6 py-16 sm:py-24">
         <Reveal>

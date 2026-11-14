@@ -79,8 +79,8 @@ export default function SiteFooter() {
           </div>
         </div>
 
-        <p className="mt-14 border-t border-line pt-5 font-mono text-[11px] uppercase tracking-[0.18em] text-mist/60">
-          © {new Date().getFullYear()} Rakib Web Studio — Rakib Ahmed · Based in {site.location} · Working worldwide
+        <p className="mt-14 border-t border-line pt-5 font-mono text-[11px] uppercase tracking-[0.18em] text-mist/70">
+          {`© ${new Date().getFullYear()} Rakib Web Studio — Rakib Ahmed · Based in ${site.location} · Working worldwide`}
         </p>
       </div>
     </footer>

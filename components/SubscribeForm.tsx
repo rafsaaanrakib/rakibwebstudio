@@ -88,7 +88,7 @@ export default function SubscribeForm({ source = "site" }: { source?: string }) 
         </button>
       </div>
       {status === "error" && <p className="mt-3 text-sm text-red-300">{message}</p>}
-      <p className="mt-3 font-mono text-[11px] uppercase tracking-[0.14em] text-mist/60">
+      <p className="mt-3 font-mono text-[11px] uppercase tracking-[0.14em] text-mist/70">
         Free forever · One email per new post · Unsubscribe in one click
       </p>
     </form>

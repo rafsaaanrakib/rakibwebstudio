@@ -19,6 +19,9 @@
 //   POST /api/subscribe     { email } → adds contact + sends welcome email
 //   GET  /api/unsubscribe   ?t=<token> → one-click unsubscribe page
 //   POST /api/unsubscribe   RFC 8058 one-click (from mail clients)
+//   POST /api/tool-result   { email, tool, summary, details } → emails
+//                           the estimator result to the visitor + a lead
+//                           note to Rakib
 //   POST /api/send-latest   header x-newsletter-secret → emails the
 //                           newest post from /rss.xml to the audience
 //                           (called by Muse right after a post deploys)
@@ -56,6 +59,9 @@ export default {
     }
     if (path === "/api/audit-report" && request.method === "POST") {
       return handleAuditReport(request, env);
+    }
+    if (path === "/api/tool-result" && request.method === "POST") {
+      return handleToolResult(request, env);
     }
     if (path === "/api/unsubscribe" && (request.method === "GET" || request.method === "POST")) {
       return handleUnsubscribe(request, env, url);
@@ -377,6 +383,101 @@ async function handleAuditReport(request, env) {
 }
 
 // ---------- unsubscribe ----------
+
+// ---------- tool-result ----------
+// Price estimator "Email my estimate". The audit-report endpoint's email is
+// audit-specific (score/total), so the estimator gets its own minimal route.
+// Same Resend patterns as handleAuditReport: contact + newsletter segment,
+// estimate emailed to the visitor, short lead note to Rakib (REPLY_TO).
+async function handleToolResult(request, env) {
+  if (!configured(env)) {
+    return json({ error: "Email results are being set up — please try again in a day or two." }, 503);
+  }
+
+  let body;
+  try {
+    body = await request.json();
+  } catch {
+    return json({ error: "Invalid request." }, 400);
+  }
+
+  if (body.website) return json({ ok: true }); // honeypot
+
+  const email = String(body.email || "").trim().toLowerCase();
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email) || email.length > 254) {
+    return json({ error: "That email address doesn't look right." }, 400);
+  }
+
+  const summary = String(body.summary || "").slice(0, 200);
+  const details = (Array.isArray(body.details) ? body.details : [])
+    .map((d) => String(d).slice(0, 200))
+    .filter(Boolean)
+    .slice(0, 12);
+  if (!summary) return json({ error: "Nothing to send yet — move the options first." }, 400);
+
+  const created = await resend(env, "/contacts", {
+    method: "POST",
+    body: JSON.stringify({ email, unsubscribed: false }),
+  });
+  let already = false;
+  if (!created.ok) {
+    if (/already|exists|duplicate/i.test(created.text || "")) {
+      already = true;
+    } else {
+      return json({ error: "Something went wrong on our side — please try again." }, 502);
+    }
+  }
+
+  try {
+    const segId = await findNewsletterSegmentId(env);
+    if (segId) await addContactToSegment(env, email, segId);
+  } catch {}
+
+  const detailsHtml = details.length
+    ? details.map((d) => `<p style="margin:0 0 6px;">— ${escHtml(d)}</p>`).join("")
+    : "";
+
+  const token = await makeToken(email, env.NEWSLETTER_SECRET);
+  const sent = await resend(env, "/emails", {
+    method: "POST",
+    body: JSON.stringify({
+      from: FROM,
+      to: [email],
+      reply_to: REPLY_TO,
+      subject: `Your project estimate — ${summary}`,
+      html: emailShell({
+        label: "YOUR PROJECT ESTIMATE",
+        title: summary,
+        bodyHtml:
+          `<p style="margin:0;">This is a planning ballpark from the price estimator on rakibwebstudio.com — not a quote. The final quote is confirmed after a short call, once the real scope is clear.</p>` +
+          (detailsHtml ? `<div style="margin:18px 0 0;">${detailsHtml}</div>` : "") +
+          `<p style="margin:18px 0 0;">Want the exact number? Reply to this email or message on WhatsApp and we'll confirm your fixed quote. You're also on the newsletter now: one email whenever a new post goes live, unsubscribe anytime.</p>`,
+        buttonLabel: "GET MY EXACT QUOTE →",
+        buttonHref: `${SITE}/contact`,
+        unsubscribeHref: `${SITE}/api/unsubscribe?t=${token}`,
+      }),
+    }),
+  });
+  if (!sent.ok) {
+    return json({ error: "The estimate couldn't be sent — please try again." }, 502);
+  }
+
+  // Short lead note to Rakib — fire and forget.
+  try {
+    await resend(env, "/emails", {
+      method: "POST",
+      body: JSON.stringify({
+        from: FROM,
+        to: [REPLY_TO],
+        reply_to: email,
+        subject: `Estimator lead — ${email} (${summary})`,
+        html: `<p>Someone used the price estimator and asked for the estimate by email.</p><p>Email: ${escHtml(email)}</p><p>Estimate: ${escHtml(summary)}</p>${details.length ? `<p>${details.map(escHtml).join("<br>")}</p>` : ""}`,
+      }),
+    });
+  } catch {}
+
+  return json({ ok: true, already });
+}
 
 async function setUnsubscribed(env, email) {
   const list = await resend(env, `/contacts?limit=100`);

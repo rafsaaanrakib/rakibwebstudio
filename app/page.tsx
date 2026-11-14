@@ -1,6 +1,7 @@
-import dynamic from "next/dynamic";
 import Link from "next/link";
 import Reveal from "@/components/Reveal";
+import ReviewQuote from "@/components/ReviewQuote";
+import GlobeSection from "@/components/GlobeSection";
 import Routes from "@/components/Routes";
 import { services } from "@/data/services";
 import { projects } from "@/data/projects";
@@ -10,11 +11,9 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/" },
+  description:
+    "Rakib Web Studio — websites, SEO, ads, content and video as one growth system for businesses worldwide. Websites from $800.",
 };
-
-// Globe is a client-only component — load it lazily so the page (and SEO
-// content) never waits on it.
-const Globe = dynamic(() => import("@/components/Globe"), { ssr: false });
 
 const processSteps = [
   { step: "Audit", copy: "I look at your site, search presence and socials, and find where growth is leaking." },
@@ -64,6 +63,9 @@ export default function Home() {
                 as one growth system that turns strangers into customers. One
                 partner who actually does it.
               </p>
+              <p className="mt-4 font-mono text-[11px] uppercase tracking-[0.18em] text-porcelain">
+                For small businesses that need a website that turns visitors into customers.
+              </p>
               <div className="mt-9 flex flex-wrap items-center gap-7">
                 <Link
                   href="/contact"
@@ -89,7 +91,9 @@ export default function Home() {
           </div>
           <Reveal delay={0.15}>
             <div className="">
-              <Globe />
+              {/* GlobeSection: static SVG poster on small screens / first
+                  paint, interactive canvas globe on larger screens. */}
+              <GlobeSection />
             </div>
           </Reveal>
         </div>
@@ -98,7 +102,7 @@ export default function Home() {
       {/* ---------- PROOF STRIP ---------- */}
       <section className="border-y border-line">
         <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-x-8 gap-y-3 px-6 py-5 font-mono text-[11px] uppercase tracking-[0.18em] text-mist">
-          <span><span className="text-porcelain">04</span> case studies</span>
+          <span><span className="text-porcelain">05</span> case studies</span>
           <span><span className="text-porcelain">09</span> growth services</span>
           <span><span className="text-porcelain">03</span> free tools</span>
           <span><span className="text-porcelain">01</span> book</span>
@@ -161,13 +165,21 @@ export default function Home() {
           </h2>
         </Reveal>
         <div>
-          {projects.slice(0, 4).map((p, i) => (
+          {projects.map((p, i) => (
             <Reveal key={p.slug} delay={Math.min(i * 0.04, 0.16)}>
               <Link
                 href={`/work/${p.slug}`}
-                className="group grid items-baseline gap-2 border-b border-line py-7 sm:grid-cols-[64px_1fr_1fr_32px] sm:gap-6"
+                className="group grid items-center gap-2 border-b border-line py-7 sm:grid-cols-[64px_144px_1fr_1fr_32px] sm:gap-6"
               >
                 <span className="font-mono text-xs text-mist">{String(i + 1).padStart(2, "0")}</span>
+                {p.image && (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={p.image}
+                    alt={`${p.name} — case study`}
+                    className="hidden aspect-video w-full border border-line object-cover sm:block"
+                  />
+                )}
                 <span>
                   <span className="block font-display text-2xl font-bold uppercase tracking-tight text-porcelain transition-transform duration-300 group-hover:translate-x-1.5 sm:text-3xl">
                     {p.name}
@@ -236,7 +248,18 @@ export default function Home() {
       <section className="mx-auto max-w-6xl px-6 pb-20 sm:pb-28">
         <SectionHead label="Results & reviews" />
         <Reveal>
-          <blockquote className="mt-12 max-w-3xl">
+          <div className="mt-12 flex items-center gap-4">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/images/rakib-portrait.jpg"
+              alt="Rakib Ahmed, founder of Rakib Web Studio"
+              className="h-14 w-14 rounded-full border border-line object-cover"
+            />
+            <p className="font-mono text-[11px] uppercase leading-relaxed tracking-[0.18em] text-mist">
+              Rakib Ahmed — founder, based in Chattogram, working worldwide
+            </p>
+          </div>
+          <blockquote className="mt-10 max-w-3xl">
             <p className="font-serif text-3xl font-medium italic leading-snug text-porcelain sm:text-4xl">
               “I would rather show you the work itself than fill this page
               with quotes nobody can verify.”
@@ -246,10 +269,12 @@ export default function Home() {
             </footer>
           </blockquote>
           <p className="mt-8 max-w-prose text-sm leading-relaxed text-mist sm:text-base">
-            The studio&apos;s Google profile is new and client reviews are
-            being collected there now. Read the case studies, then check the
-            public profile — and hold me to it.
+            Read the case studies, then check the public profile — and hold
+            me to it.
           </p>
+          <div className="mt-8 max-w-3xl">
+            <ReviewQuote />
+          </div>
           <div className="mt-7 flex flex-wrap gap-7">
             <a
               href={site.googleProfile}
@@ -257,7 +282,7 @@ export default function Home() {
               rel="noopener noreferrer"
               className="font-display text-sm font-bold uppercase tracking-wide text-porcelain underline decoration-line underline-offset-8 hover:decoration-porcelain"
             >
-              See the Google profile
+              See it on Google
             </a>
             <Link
               href="/work"
@@ -326,7 +351,7 @@ export default function Home() {
                   Get the book →
                 </Link>
                 <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-mist/70">
-                  PDF · 35 pages · Instant start
+                  PDF · 35 pages · Delivered by email, usually within a few hours
                 </p>
               </div>
             </div>

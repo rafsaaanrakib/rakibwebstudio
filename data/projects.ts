@@ -15,11 +15,16 @@ export type Project = {
   // Optional muted loop (mp4/webm under /public/videos). The case-study
   // template renders it at the top when present.
   video?: string;
+  // Still image for the case-study page and work rows (under
+  // /public/images/case-studies). For video projects this is a frame of
+  // the loop; for faisal-iqbal it is a monochrome typographic card.
+  image?: string;
 };
 
 export const projects: Project[] = [
   {
     slug: "wearzana",
+    image: "/images/case-studies/wearzana.jpg",
     name: "WearZana.com",
     tag: "E-commerce · Web Development, SEO, Ads",
     copy: "Built the full fashion e-commerce store from scratch — now run SEO and Facebook ads for ongoing growth.",
@@ -34,6 +39,7 @@ export const projects: Project[] = [
   },
   {
     slug: "rewiso",
+    image: "/images/case-studies/rewiso.jpg",
     name: "Rewiso",
     tag: "Product · App Design & Launch",
     copy: "A free spending journal app I founded and launched — helping people see which purchases they regret, and why.",
@@ -48,6 +54,7 @@ export const projects: Project[] = [
   },
   {
     slug: "fish-and-family",
+    image: "/images/case-studies/fish-and-family.jpg",
     name: "Fish & Family",
     tag: "Local Brand · Full Online Setup, Video",
     copy: "Set up the full online presence from scratch for a fresh seafood delivery business — then produce the product videos that build trust and drive orders.",
@@ -61,6 +68,7 @@ export const projects: Project[] = [
   },
   {
     slug: "peerlesshouse",
+    image: "/images/case-studies/peerlesshouse.jpg",
     name: "PeerlessHouse",
     tag: "Affiliate Marketing · WordPress",
     copy: "Custom WordPress build with affiliate integration, SEO optimization, and analytics.",
@@ -74,9 +82,10 @@ export const projects: Project[] = [
   },
   {
     slug: "faisal-iqbal",
+    image: "/images/case-studies/faisal-iqbal.jpg",
     name: "Faisal Iqbal – Income Tax Lawyer",
     tag: "Professional Services · Google Profile Setup, SEO",
-    copy: "Created the Google Business Profile from scratch, set it up completely, and got it verified — then SEO guidance that keeps it ranking and bringing enquiries.",
+    copy: "Created the Google Business Profile from scratch, set it up completely, and got it verified — then SEO guidance that keeps it ranking.",
     result: "Google Business Profile created from zero and verified via video verification; profile shows 5.0 from 9 reviews.",
     outcome: "A lawyer with no Google presence — now verified, visible, and reviewed.",
     outcomePoints: ["Google profile created from zero", "Verified via video verification", "Profile live and reviewed"],

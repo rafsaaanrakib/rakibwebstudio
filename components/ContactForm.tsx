@@ -11,16 +11,22 @@ type Status = "idle" | "sending" | "sent" | "error";
 
 export default function ContactForm() {
   const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
   const [business, setBusiness] = useState("");
   const [goal, setGoal] = useState("A new website");
+  const [budget, setBudget] = useState("Not sure yet");
   const [message, setMessage] = useState("");
   const [status, setStatus] = useState<Status>("idle");
 
   function compose() {
     const lines = [
       `Hi Rakib, I'm ${name || "…"}.`,
+      email ? `My email: ${email}` : "",
+      phone ? `My phone / WhatsApp: ${phone}` : "",
       business ? `My business: ${business}` : "",
       `I'm interested in: ${goal}`,
+      `Budget: ${budget}`,
       message ? `\n${message}` : "",
     ].filter(Boolean);
     return lines.join("\n");
@@ -36,10 +42,13 @@ export default function ContactForm() {
         headers: { "Content-Type": "application/json", Accept: "application/json" },
         body: JSON.stringify({
           name,
+          email,
+          phone,
           business,
           goal,
+          budget,
           message,
-          _subject: `Project enquiry — ${business || name || "Website"}`,
+          _subject: `Project enquiry — ${business || name || "Website"} (${budget})`,
           _template: "table",
           _captcha: "false",
         }),
@@ -62,7 +71,9 @@ export default function ContactForm() {
           <p className="text-lg font-semibold text-porcelain">Message received ✓</p>
           <p className="mt-2 text-sm leading-relaxed text-mist">
             Thanks{name ? `, ${name}` : ""} — your enquiry is on its way to
-            Rakib. Expect a reply within one business day. Prefer chat?{" "}
+            Rakib. He&apos;ll reply{email ? ` to ${email}` : ""} within one
+            business day with next steps — usually a few questions and a fixed
+            quote. Prefer chat?{" "}
             <a
               href={whatsappLink(compose())}
               target="_blank"
@@ -77,8 +88,11 @@ export default function ContactForm() {
             type="button"
             onClick={() => {
               setName("");
+              setEmail("");
+              setPhone("");
               setBusiness("");
               setGoal("A new website");
+              setBudget("Not sure yet");
               setMessage("");
               setStatus("idle");
             }}
@@ -99,6 +113,35 @@ export default function ContactForm() {
                 required
                 value={name}
                 onChange={(e) => setName(e.target.value)}
+                className="mt-2 w-full rounded-lg border border-line bg-night px-3 py-2.5 text-sm text-porcelain"
+              />
+            </div>
+            <div>
+              <label htmlFor="cf-email" className="text-xs font-medium uppercase tracking-[0.14em] text-accent">
+                Your email
+              </label>
+              <input
+                id="cf-email"
+                name="email"
+                type="email"
+                required
+                placeholder="you@yourbusiness.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="mt-2 w-full rounded-lg border border-line bg-night px-3 py-2.5 text-sm text-porcelain"
+              />
+            </div>
+            <div>
+              <label htmlFor="cf-phone" className="text-xs font-medium uppercase tracking-[0.14em] text-accent">
+                Phone / WhatsApp <span className="normal-case tracking-normal text-mist/70">(optional)</span>
+              </label>
+              <input
+                id="cf-phone"
+                name="phone"
+                type="tel"
+                placeholder="+1 555 000 0000"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
                 className="mt-2 w-full rounded-lg border border-line bg-night px-3 py-2.5 text-sm text-porcelain"
               />
             </div>
@@ -132,6 +175,23 @@ export default function ContactForm() {
               </select>
             </div>
             <div>
+              <label htmlFor="cf-budget" className="text-xs font-medium uppercase tracking-[0.14em] text-accent">
+                Budget range
+              </label>
+              <select
+                id="cf-budget"
+                value={budget}
+                onChange={(e) => setBudget(e.target.value)}
+                className="mt-2 w-full rounded-lg border border-line bg-night px-3 py-2.5 text-sm text-porcelain"
+              >
+                <option>Under $800</option>
+                <option>$800–$2,000</option>
+                <option>$2,000–$5,000</option>
+                <option>$5,000+</option>
+                <option>Not sure yet</option>
+              </select>
+            </div>
+            <div>
               <label htmlFor="cf-message" className="text-xs font-medium uppercase tracking-[0.14em] text-accent">
                 Anything else?
               </label>
@@ -159,6 +219,11 @@ export default function ContactForm() {
               .
             </p>
           )}
+
+          <p className="mt-6 text-sm leading-relaxed text-mist">
+            What happens next: you&apos;ll get a reply within one business day
+            with next steps — usually a few questions and a fixed quote.
+          </p>
 
           <div className="mt-6 flex flex-wrap gap-3">
             <button

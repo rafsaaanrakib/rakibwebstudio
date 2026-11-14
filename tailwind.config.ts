@@ -14,10 +14,10 @@ const config: Config = {
         panel2: "#17171A",
         line: "rgba(236, 236, 230, 0.13)",
         porcelain: "#ECECE6",
-        mist: "#A7A39A",
+        mist: "#C6C2BA",
         accent: "#E8E6DF",
-        violet: "#8A8A8E",
-        mint: "#9B978E",
+        violet: "#A8A8AD",
+        mint: "#B8B4AB",
         signal: "#38BDF8",
       },
       fontFamily: {

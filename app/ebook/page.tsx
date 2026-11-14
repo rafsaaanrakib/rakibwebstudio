@@ -67,8 +67,28 @@ const faqs = [
 ];
 
 export default function EbookPage() {
+  const productJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: "Website to Customers",
+    description:
+      "A simple system for turning visitors into paying clients. 14 chapters, 30-day plan, worksheets. $11.99.",
+    author: { "@type": "Person", name: "Rakib Ahmed", url: `${site.url}/about` },
+    offers: {
+      "@type": "Offer",
+      price: "11.99",
+      priceCurrency: "USD",
+      availability: "https://schema.org/InStock",
+      url: `${site.url}/ebook`,
+    },
+  };
+
   return (
     <div>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd) }}
+      />
       {/* ——— Hero ——— */}
       <section className="mx-auto max-w-6xl px-6 pb-20 pt-16 sm:pt-24">
         <div className="grid items-center gap-14 lg:grid-cols-[1.1fr_0.9fr]">
@@ -105,7 +125,11 @@ export default function EbookPage() {
             </div>
             <p className="mt-4 max-w-prose text-sm leading-relaxed text-mist/80">
               Pay by card at checkout — order now and the PDF lands in your
-              inbox within a few hours.
+              inbox within a few hours. Secure card checkout via Creem.
+            </p>
+            <p className="mt-2 max-w-prose text-sm leading-relaxed text-mist/80">
+              Didn&apos;t get the PDF or something&apos;s wrong? Email me and
+              I&apos;ll make it right.
             </p>
           </Reveal>
 
@@ -198,7 +222,7 @@ export default function EbookPage() {
             {audience.map((item, i) => (
               <Reveal key={item} delay={i * 0.05}>
                 <div className="grid gap-2 border-t border-line py-6 sm:grid-cols-[4rem_1fr] sm:gap-6">
-                  <span className="font-mono text-sm text-mist/60">{String(i + 1).padStart(2, "0")}</span>
+                  <span className="font-mono text-sm text-mist/70">{String(i + 1).padStart(2, "0")}</span>
                   <p className="max-w-prose text-base leading-relaxed text-porcelain/90">{item}</p>
                 </div>
               </Reveal>
@@ -228,7 +252,7 @@ export default function EbookPage() {
             {chapters.map((c, i) => (
               <Reveal key={c.n} delay={(i % 2) * 0.05}>
                 <div className="grid gap-1 border-t border-line py-5 sm:grid-cols-[3.5rem_1fr] sm:gap-4">
-                  <span className="font-mono text-sm text-mist/60">{c.n}</span>
+                  <span className="font-mono text-sm text-mist/70">{c.n}</span>
                   <div>
                     <h3 className="font-display text-[15px] font-bold uppercase tracking-wide text-porcelain">
                       {c.title}
@@ -260,6 +284,104 @@ export default function EbookPage() {
                   The 30-Day Action Plan checklist
                 </li>
               </ul>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ——— Read the first chapter free ——— */}
+      <section className="border-t border-line">
+        <div className="mx-auto max-w-4xl px-6 py-20 sm:py-24">
+          <Reveal>
+            <p className="font-mono text-[11px] uppercase tracking-[0.24em] text-mist">Read the first chapter free</p>
+            <h2 className="mt-3 font-display text-3xl font-extrabold uppercase tracking-tight text-porcelain sm:text-4xl">
+              Chapter 1 — Why Most Websites Don&apos;t Sell
+            </h2>
+            <p className="mt-5 max-w-prose text-base leading-relaxed text-mist">
+              Before we talk about fixing a website, we need to understand why
+              the average small business website underperforms. In my work
+              with dozens of businesses, the reasons are almost always the same
+              five problems — and the good news is, all five are fixable
+              without a full redesign or a big budget.
+            </p>
+          </Reveal>
+
+          <div className="mt-12 space-y-10">
+            {[
+              { n: "Problem 1", title: "The website talks about the business, not the customer", body: "Most homepages open with the company's story: who they are, how long they've been around, what they're proud of. But a visitor lands on a website with one silent question in mind: \u201CCan this solve my problem?\u201D If the first screen doesn't answer that, the visitor leaves — often in under ten seconds." },
+              { n: "Problem 2", title: "There's no clear next step", body: "A visitor who is interested but doesn't know what to do next will simply close the tab. Many websites have no single, obvious action — instead they offer five links in the navigation, a contact form buried on another page, and no real invitation to act." },
+              { n: "Problem 3", title: "Trust is never established", body: "People buy from businesses they trust, and trust is built through evidence: testimonials, real photos, credentials, case studies, guarantees. A site with no proof is asking a stranger to take a leap of faith — and most won't." },
+              { n: "Problem 4", title: "No one is actually visiting", body: "Some websites are well built but invisible. Without a plan to bring in traffic — through search engines, social media, or referrals — even a perfect website is a beautiful, empty room." },
+              { n: "Problem 5", title: "There's no follow-up system", body: "Most visitors won't buy on their first visit. Research on buying behavior consistently shows people need multiple touchpoints before making a purchase decision, especially for services and higher-priced products. A website with no way to capture a lead and follow up is leaving the majority of potential customers on the table." },
+            ].map((p, i) => (
+              <Reveal key={p.n} delay={i * 0.04}>
+                <div className="border-t border-line pt-6">
+                  <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-mist">{p.n}</p>
+                  <h3 className="mt-2 font-display text-xl font-bold tracking-tight text-porcelain">{p.title}</h3>
+                  <p className="mt-2 max-w-prose text-base leading-relaxed text-mist">{p.body}</p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+
+          <Reveal>
+            <blockquote className="mt-12 border-l-2 border-line pl-6">
+              <p className="font-serif text-2xl italic leading-snug text-porcelain">
+                “A website doesn&apos;t need to be beautiful to sell. It needs
+                to be clear, trustworthy, and connected to a follow-up system.”
+              </p>
+              <footer className="mt-4 font-mono text-[11px] uppercase tracking-[0.22em] text-mist">
+                Key idea — Chapter 1
+              </footer>
+            </blockquote>
+
+            <h3 className="mt-12 font-display text-xl font-bold tracking-tight text-porcelain">
+              The four stages every visitor moves through
+            </h3>
+            <ol className="mt-4 space-y-3">
+              {[
+                "Visitor — someone lands on your site, usually a stranger",
+                "Interested Lead — they engage: they read more, or give you their contact info",
+                "Trusting Prospect — they believe you can solve their problem and are close to deciding",
+                "Paying Client — they take action and buy or book",
+              ].map((s, i) => (
+                <li key={s} className="flex gap-3 text-base leading-relaxed text-mist">
+                  <span className="font-mono text-sm text-signal">{String(i + 1).padStart(2, "0")}</span>
+                  <span>{s}</span>
+                </li>
+              ))}
+            </ol>
+            <p className="mt-5 max-w-prose text-base leading-relaxed text-mist">
+              Most businesses focus all their energy on stage one — getting
+              more traffic — while ignoring stages two through four. That&apos;s
+              like renting a busy shop front and leaving the door locked. This
+              book fixes the entire path, not just the traffic.
+            </p>
+
+            <div className="mt-10 border border-line bg-panel p-7">
+              <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-porcelain">Action step</p>
+              <p className="mt-3 max-w-prose text-base leading-relaxed text-mist">
+                Open your current website (or picture the one you&apos;re about
+                to build). Time yourself for 10 seconds — that&apos;s roughly
+                how long a real visitor gives you. Can you tell, in that time,
+                what the business does, who it&apos;s for, and what to do next?
+                Write down what&apos;s missing. You&apos;ll use this list
+                throughout the book.
+              </p>
+            </div>
+
+            <p className="mt-10 text-center font-mono text-[11px] uppercase tracking-[0.18em] text-mist">
+              Liked the first chapter? The other 13 are in the book.
+            </p>
+            <div className="mt-5 text-center">
+              <a
+                href={buyHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block bg-accent px-8 py-4 font-display text-sm font-bold uppercase tracking-wide text-night transition hover:bg-porcelain"
+              >
+                Get the book — $11.99
+              </a>
             </div>
           </Reveal>
         </div>

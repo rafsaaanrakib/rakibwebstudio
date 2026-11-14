@@ -51,15 +51,32 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
           </p>
         </div>
 
+        {project.image && (
+          <>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={project.image}
+              alt={`${project.name} — case study`}
+              className="mt-10 w-full border border-line"
+            />
+          </>
+        )}
+
         {project.video && (
-          <video
-            className="mt-10 w-full border border-line"
-            src={project.video}
-            autoPlay
-            muted
-            loop
-            playsInline
-          />
+          <>
+            <video
+              className="mt-6 w-full border border-line"
+              src={project.video}
+              poster={project.image}
+              autoPlay
+              muted
+              loop
+              playsInline
+            />
+            <p className="mt-3 font-mono text-[11px] uppercase tracking-[0.18em] text-mist/70">
+              Watch the walkthrough
+            </p>
+          </>
         )}
 
         <p className="mt-8 max-w-prose text-base leading-relaxed text-mist">{project.detail}</p>

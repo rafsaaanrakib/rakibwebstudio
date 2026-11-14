@@ -101,7 +101,7 @@ export default function AboutPage() {
         <div className="mt-8 space-y-8">
           {experience.map((e) => (
             <div key={`${e.org}-${e.time}`} className="grid gap-3 border-b border-line pb-8 sm:grid-cols-[9rem_1fr] sm:gap-8">
-              <p className="text-xs uppercase tracking-wide text-mist/60">{e.time}</p>
+              <p className="text-xs uppercase tracking-wide text-mist/70">{e.time}</p>
               <div>
                 <p className="text-sm text-mint">{e.org}</p>
                 <h3 className="mt-1 font-serif text-lg font-semibold text-porcelain">{e.role}</h3>

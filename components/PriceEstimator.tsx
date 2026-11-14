@@ -28,6 +28,47 @@ export default function PriceEstimator() {
   const [typeId, setTypeId] = useState<string>("business");
   const [pages, setPages] = useState(6);
   const [addons, setAddons] = useState<Record<string, boolean>>({ seo: true });
+  const [email, setEmail] = useState("");
+  const [estStatus, setEstStatus] = useState<"idle" | "sending" | "done" | "error">("idle");
+  const [estMessage, setEstMessage] = useState("");
+
+  const base = projectTypes.find((t) => t.id === typeId) ?? projectTypes[1];
+  const chosenAddons = monthlyAddons.filter((a) => addons[a.id]);
+
+  async function sendEstimate(e: React.FormEvent) {
+    e.preventDefault();
+    if (estStatus === "sending") return;
+    setEstStatus("sending");
+    setEstMessage("");
+    try {
+      const res = await fetch("/api/tool-result", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email,
+          tool: "estimator",
+          summary: `$${fmt(estimate.low)} – $${fmt(estimate.high)} one-time`,
+          details: [
+            `Project type: ${base.label}`,
+            `Pages: ${pages}`,
+            estimate.monthly.low > 0
+              ? `Monthly add-ons: $${fmt(estimate.monthly.low)} – $${fmt(estimate.monthly.high)} / month (${chosenAddons.map((a) => a.label).join(", ")})`
+              : "No monthly add-ons selected",
+          ],
+        }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (res.ok && data.ok) {
+        setEstStatus("done");
+      } else {
+        setEstStatus("error");
+        setEstMessage(data.error || "Something went wrong — please try again.");
+      }
+    } catch {
+      setEstStatus("error");
+      setEstMessage("Network error — please try again.");
+    }
+  }
 
   const estimate = useMemo(() => {
     const base = projectTypes.find((t) => t.id === typeId) ?? projectTypes[1];
@@ -129,6 +170,42 @@ export default function PriceEstimator() {
         >
           Get my exact quote
         </Link>
+
+        {estStatus === "done" ? (
+          <p className="mt-5 border border-line bg-panel px-4 py-3 text-sm leading-relaxed text-porcelain">
+            Your estimate is on its way to <span className="font-semibold">{email}</span> — project
+            range, your options, and the next step to an exact quote.
+          </p>
+        ) : (
+          <form onSubmit={sendEstimate} className="mt-5" noValidate>
+            <label htmlFor="est-email" className="text-xs uppercase tracking-[0.14em] text-mist">
+              Email my estimate
+            </label>
+            <div className="mt-2 flex flex-col gap-3 sm:flex-row">
+              <input
+                id="est-email"
+                type="email"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="you@company.com"
+                className="w-full border border-line bg-transparent px-4 py-2.5 text-sm text-porcelain placeholder:text-mist/50 focus:border-porcelain/60 focus:outline-none"
+              />
+              <button
+                type="submit"
+                disabled={estStatus === "sending"}
+                className="shrink-0 bg-porcelain px-5 py-2.5 text-sm font-semibold text-night transition hover:bg-accent disabled:opacity-60"
+              >
+                {estStatus === "sending" ? "Sending…" : "Send my estimate"}
+              </button>
+            </div>
+            {estStatus === "error" && <p className="mt-3 text-sm text-red-300">{estMessage}</p>}
+            <p className="mt-2.5 text-xs leading-relaxed text-mist/70">
+              You&apos;ll also join the newsletter — one email per new post,
+              unsubscribe in one click. No spam, ever.
+            </p>
+          </form>
+        )}
       </div>
     </div>
   );

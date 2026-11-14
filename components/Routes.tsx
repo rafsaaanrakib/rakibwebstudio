@@ -26,7 +26,7 @@ const routes = [
   },
   {
     n: "03",
-    name: "Scale",
+    name: "Care",
     price: "From $100 / month",
     fit: "For a business that wants its website kept fast, safe and improving every month.",
     includes:

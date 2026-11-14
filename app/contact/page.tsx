@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Reveal from "@/components/Reveal";
 import ContactForm from "@/components/ContactForm";
+import ReviewQuote from "@/components/ReviewQuote";
 import { site, whatsappLink } from "@/data/site";
 
 export const metadata: Metadata = {
@@ -28,21 +29,21 @@ export default function ContactPage() {
 
             <div className="mt-10 space-y-5 text-sm">
               <a href={`mailto:${site.email}`} className="group block border-t border-line pt-4">
-                <span className="block text-xs uppercase tracking-wide text-mist/60">Email</span>
+                <span className="block text-xs uppercase tracking-wide text-mist/70">Email</span>
                 <span className="mt-1 block break-words text-mint underline decoration-accent decoration-2 underline-offset-4 group-hover:text-porcelain">
                   {site.email}
                 </span>
               </a>
               <a href={whatsappLink()} target="_blank" rel="noopener noreferrer" className="group block border-t border-line pt-4">
-                <span className="block text-xs uppercase tracking-wide text-mist/60">WhatsApp</span>
+                <span className="block text-xs uppercase tracking-wide text-mist/70">WhatsApp</span>
                 <span className="mt-1 block text-mint group-hover:text-porcelain">{site.whatsappDisplay}</span>
               </a>
               <a href={site.linkedin} target="_blank" rel="noopener noreferrer" className="group block border-t border-line pt-4">
-                <span className="block text-xs uppercase tracking-wide text-mist/60">LinkedIn</span>
+                <span className="block text-xs uppercase tracking-wide text-mist/70">LinkedIn</span>
                 <span className="mt-1 block text-mint underline decoration-accent decoration-2 underline-offset-4 group-hover:text-porcelain">/in/rafsaanrakib</span>
               </a>
               <div className="border-t border-line pt-4">
-                <span className="block text-xs uppercase tracking-wide text-mist/60">Follow along</span>
+                <span className="block text-xs uppercase tracking-wide text-mist/70">Follow along</span>
                 <span className="mt-2 flex flex-wrap gap-x-4 gap-y-1">
                   <a href={site.instagram} target="_blank" rel="noopener noreferrer" className="text-mint hover:text-porcelain">Instagram</a>
                   <a href={site.tiktok} target="_blank" rel="noopener noreferrer" className="text-mint hover:text-porcelain">TikTok</a>
@@ -51,8 +52,18 @@ export default function ContactPage() {
                 </span>
               </div>
               <div className="border-t border-line pt-4">
-                <span className="block text-xs uppercase tracking-wide text-mist/60">Based in</span>
+                <span className="block text-xs uppercase tracking-wide text-mist/70">Based in</span>
                 <span className="mt-1 block text-porcelain">{site.location} — working worldwide</span>
+              </div>
+              <div className="border-t border-line pt-4">
+                <span className="block text-xs uppercase tracking-wide text-mist/70">Working hours</span>
+                <span className="mt-1 block text-porcelain">10 AM – 10 PM daily (Asia/Dhaka)</span>
+                <span className="mt-1 block text-sm leading-relaxed text-mist">
+                  I work across time zones — replies within one business day.
+                </span>
+              </div>
+              <div className="border-t border-line pt-6">
+                <ReviewQuote />
               </div>
             </div>
           </div>

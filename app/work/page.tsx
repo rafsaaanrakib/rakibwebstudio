@@ -31,6 +31,14 @@ export default function WorkPage() {
           <Reveal key={p.slug} delay={i * 0.05}>
             <TiltCard className="h-full">
               <Link href={`/work/${p.slug}`} className="block h-full rounded-2xl border border-line bg-panel p-7 hover:border-accent/60">
+                {p.image && (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={p.image}
+                    alt={`${p.name} — case study`}
+                    className="mb-5 aspect-video w-full rounded-xl border border-line object-cover"
+                  />
+                )}
                 <p className="text-xs uppercase tracking-[0.16em] text-mint">{p.tag}</p>
                 <h2 className="mt-4 font-serif text-2xl font-semibold text-porcelain">{p.name}</h2>
                 <p className="mt-3 text-sm leading-relaxed text-mist">{p.copy}</p>
